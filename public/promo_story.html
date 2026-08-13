@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promo 17-an Insta Story 1:1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --color-primary: #ff4747;
+            --color-primary-dark: #8B1E24;
+            --color-background: #0a0a0a;
+            --color-text: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { background-color: #000; color: var(--color-text); font-family: var(--font-body); display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; -webkit-font-smoothing: antialiased; }
+
+        /* Cursor */
+        .cursor-dot, .cursor-outline { position: absolute; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; z-index: 99999; pointer-events: none; transition: opacity 0.3s; }
+        .cursor-dot { width: 8px; height: 8px; background-color: var(--color-primary); }
+        .cursor-outline { width: 40px; height: 40px; border: 2px solid rgba(255, 71, 71, 0.5); transition: width 0.2s, height 0.2s, background-color 0.2s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .cursor-outline.hover { width: 60px; height: 60px; background-color: rgba(255, 71, 71, 0.1); border-color: transparent; }
+        .cursor-outline.click { transform: translate(-50%, -50%) scale(0.8); background-color: rgba(255, 71, 71, 0.3); }
+
+        /* Container */
+        .story-container { width: 360px; height: 640px; background: linear-gradient(135deg, rgba(10, 10, 10, 0.9) 0%, rgba(30, 5, 5, 0.8) 100%), url('images/IMG_2704.JPG') no-repeat center center; background-size: cover; position: relative; overflow: hidden; box-shadow: 0 0 50px rgba(255, 71, 71, 0.15); }
+        
+        /* Navbar */
+        .navbar { background: rgba(17, 17, 17, 0.9); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; position: absolute; top: 0; left: 0; width: 100%; z-index: 100; transition: transform 0.5s ease; }
+        .navbar-brand { font-family: var(--font-heading); font-size: 1rem; color: var(--color-primary-dark); font-weight: 800; white-space: nowrap;}
+        .nav-right { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap;}
+        .theme-toggle { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: #ccc; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .nav-link { font-size: 0.75rem; color: #fff; font-weight: 400; white-space: nowrap;}
+        .btn-nav { background: var(--color-primary); color: #fff; padding: 5px 8px; font-size: 0.7rem; font-weight: 600; border-radius: 4px; border: none; box-shadow: 0 4px 6px rgba(139,30,36,0.2); white-space: nowrap;}
+        .nav-link.hover-effect, .btn-nav.hover-effect { filter: brightness(1.2); }
+
+        /* Scroll Area & Scenes */
+        .scroll-area { position: absolute; top: 55px; left: 0; width: 100%; height: calc(100% - 55px); padding: 20px; transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1); }
+        .scene { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+        .scene.active { opacity: 1; pointer-events: auto; }
+
+        /* --- HERO SCENE --- */
+        .hero-badge { color: var(--color-primary); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; font-size: 0.7rem; margin-top: 10px;}
+        .hero-title { font-family: var(--font-heading); font-size: 2.8rem; line-height: 1.05; margin-bottom: 25px; font-weight: 800; color: #fff; letter-spacing: -1.5px; }
+        .ss-card { background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 25px; }
+        .ss-carousel { position: relative; aspect-ratio: 3/4; overflow: hidden; border-radius: 6px; background: #222; }
+        .ss-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s; }
+        .ss-slide.active { opacity: 1; }
+        .ss-slide img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8);}
+        .btn-glow { display: inline-block; background-color: var(--color-primary); color: #fff; padding: 12px 24px; border: none; border-radius: 8px; font-family: var(--font-body); font-weight: 600; font-size: 1rem; width: 100%; text-align: center; box-shadow: 0 4px 6px rgba(139, 30, 36, 0.2); transition: all 0.3s ease; }
+        .btn-glow.hover-effect { background-color: var(--color-primary-dark); transform: translateY(-2px); }
+
+        .feature-section { background: #fff; color: #111; padding: 25px 20px; border-radius: 12px; margin-top: 40px; }
+        .feature-box { background: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+
+        /* --- GALERI SCENE --- */
+        .scene-galeri { background: #0a0a0a; padding: 15px; top: 55px; height: calc(100% - 55px); overflow: hidden; text-align: left; }
+        .galeri-title { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; color:#fff;}
+        .galeri-title span { color: var(--color-primary); }
+        .galeri-desc { font-size: 0.75rem; color:#ccc; margin-bottom: 20px; line-height:1.4;}
+        .galeri-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .galeri-item { position: relative; border-radius: 8px; overflow: hidden; aspect-ratio: 4/3; border: 1px solid rgba(255,255,255,0.1);}
+        .galeri-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .galeri-item::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60%; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%); opacity: 0; transition: opacity 0.4s ease; }
+        .galeri-item.hover-active img { transform: scale(1.1); }
+        .galeri-item.hover-active::after { opacity: 1; }
+        .galeri-item-overlay { position: absolute; bottom: 8px; left: 8px; right: 8px; z-index: 2; transform: translateY(15px); opacity: 0; transition: all 0.4s ease; }
+        .galeri-item.hover-active .galeri-item-overlay { transform: translateY(0); opacity: 1; }
+        .galeri-tag { background: var(--color-primary); color: #fff; padding: 2px 6px; border-radius: 20px; font-size: 0.5rem; font-weight: 700; text-transform: uppercase; margin-bottom: 2px; display:inline-block;}
+        
+        .lightbox { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events:none; transition: opacity 0.3s ease; }
+        .lightbox.active { opacity: 1; pointer-events:auto; }
+        .lightbox img { width: 90%; max-height: 80%; border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); border: 1px solid rgba(255,255,255,0.1); }
+        .lightbox-close { position: absolute; top: 20px; right: 20px; color: #fff; font-size: 2.5rem; line-height:1; }
+        .lightbox-close.hover-effect { color: var(--color-primary); }
+
+        /* --- FORM SCENE --- */
+        .scene-form { background-color: #0a0a0a; padding: 20px; overflow: hidden; top: 55px; height: calc(100% - 55px);}
+        .back-btn { display: inline-block; border: 1px solid var(--glass-border); background: var(--glass-bg); padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; margin-bottom: 15px; color: #fff;}
+        .glass-card-form { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 25px 20px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
+        .form-title { font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 5px; color:#fff; text-align: center; }
+        .form-subtitle { text-align: center; font-size: 0.75rem; opacity: 0.6; margin-bottom: 25px; }
+        .wizard-progress { display: flex; justify-content: space-between; position: relative; margin-bottom: 30px; }
+        .wizard-progress::before { content: ''; position: absolute; top: 50%; left: 0; width: 100%; height: 4px; background: var(--glass-bg); z-index: 1; transform: translateY(-50%); }
+        .wizard-progress-bar { position: absolute; top: 50%; left: 0; width: 0%; height: 4px; background: var(--color-primary); z-index: 2; transform: translateY(-50%); transition: width 0.4s ease; box-shadow: 0 0 10px var(--color-primary);}
+        .wizard-step-dot { width: 28px; height: 28px; border-radius: 50%; background: var(--color-background); border: 2px solid var(--glass-border); z-index: 3; display: flex; align-items: center; justify-content: center; color: var(--color-text); font-size: 0.75rem; font-weight: bold; transition: all 0.4s ease; }
+        .wizard-step-dot.active { background: var(--color-primary); border-color: var(--color-primary); box-shadow: 0 0 15px rgba(255, 71, 71, 0.5); }
+        .wizard-step-dot.completed { background: var(--color-primary); border-color: var(--color-primary); }
+
+        .form-section { display: none; animation: fadeIn 0.4s; }
+        .form-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        
+        .step-title { color: var(--color-primary); font-family: var(--font-heading); font-size: 1.1rem; margin-bottom: 20px; }
+        .form-label { display: block; color: var(--color-text); opacity: 0.8; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight:600;}
+        .form-control { width: 100%; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: var(--color-text); padding: 12px; border-radius: 6px; font-size: 0.85rem; margin-bottom: 20px; position: relative;}
+        .form-control::after { content: '|'; position: absolute; right: 12px; color: var(--color-primary); animation: blink 1s infinite; opacity: 0; }
+        .typing::after { opacity: 1; }
+        @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+        
+        .btn-wrapper { display: flex; justify-content: flex-end; }
+        .btn-wrapper.between { justify-content: space-between; }
+        .btn-next { background: var(--color-primary); color: #fff; padding: 10px 20px; border-radius: 8px; border: none; font-size: 0.85rem; font-weight:bold; box-shadow: 0 4px 6px rgba(139,30,36,0.2); transition: 0.3s;}
+        .btn-next.hover-effect { background: var(--color-primary-dark); transform: translateY(-2px);}
+
+        .lomba-label { display: block; background: var(--glass-bg); padding: 15px; border-radius: 12px; border: 1px solid var(--glass-border); position: relative; margin-bottom: 15px; transition: 0.3s;}
+        .lomba-label.checked { border-color: var(--color-primary); background: rgba(255,71,71,0.05); }
+        .lomba-title { font-weight: bold; font-size: 0.95rem; margin-bottom: 5px; color: #fff;}
+        .lomba-tag { background: rgba(255, 71, 71, 0.2); color: #ff4747; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: bold; }
+        .check-indicator { position: absolute; top: 15px; right: 15px; width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--glass-border); }
+        .lomba-label.checked .check-indicator { background: var(--color-primary); border-color: var(--color-primary); }
+        .lomba-label.checked .check-indicator::after { content: ''; position: absolute; left: 5px; top: 2px; width: 4px; height: 9px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+
+        /* --- SUCCESS SCENE --- */
+        .scene-success { background: #0a0a0a; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; top: 55px; height: calc(100% - 55px); text-align: center;}
+        .spinner-modern { display: inline-block; width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.1); border-radius: 50%; border-top-color: var(--color-primary); animation: spin 1s cubic-bezier(0.68, -0.55, 0.26, 1.55) infinite; margin-bottom: 15px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .success-bar { background: rgba(40, 167, 69, 0.2); color: #4ade80; padding: 12px; border-radius: 8px; border: 1px solid rgba(40, 167, 69, 0.3); font-weight: bold; font-size: 0.85rem; margin-bottom: 25px; width: 100%; opacity: 0; transform: translateY(-10px); transition: 0.5s;}
+        
+        /* --- ADMIN LOGIN SCENE --- */
+        .scene-admin-login { background: linear-gradient(135deg, rgba(10, 10, 10, 0.9) 0%, rgba(30, 5, 5, 0.9) 100%); display: flex; justify-content: center; align-items: center; padding: 20px; z-index: 150; }
+        .login-card { background: var(--glass-bg); padding: 30px 20px; width: 100%; border-radius: 12px; border: 1px solid var(--glass-border); text-align: center; }
+        .login-title { font-weight: 800; color: #fff; margin-bottom: 5px; font-size:1.5rem; font-family: var(--font-heading);}
+        .login-subtitle { color: #ccc; font-size: 0.75rem; margin-bottom: 20px; }
+
+        /* --- ADMIN SCENE --- */
+        .scene-admin { background: linear-gradient(135deg, rgba(10, 10, 10, 0.9) 0%, rgba(30, 5, 5, 0.9) 100%); top: 0; height: 100%; z-index: 200; overflow: hidden; padding: 0;}
+        .admin-scroll { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 15px; transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1); }
+        .menu-toggle { display: inline-block; background: rgba(255,255,255,0.1); color: white; border: 1px solid var(--glass-border); padding: 8px 12px; border-radius: 5px; font-size: 0.9rem; margin-bottom: 20px; }
+        .admin-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(20px);}
+        .admin-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; background: rgba(0,0,0,0.2); }
+        .admin-table th { text-align: left; padding: 8px 5px; border-bottom: 1px solid rgba(255,255,255,0.1); color: #fff; font-weight: normal; background: rgba(255,255,255,0.05); }
+        .admin-table td { padding: 10px 5px; border-bottom: 1px solid rgba(255,255,255,0.05); color:#fff; }
+        .status-badge { padding: 3px 8px; border-radius: 4px; font-size: 0.65rem; font-weight: bold; }
+        .status-wait { background: #fff3cd; color: #856404; }
+        .status-ok { background: #d4edda; color: #155724; }
+        
+        .admin-modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s; padding:20px;}
+        .admin-modal.active { opacity: 1; pointer-events: auto; }
+
+        #playOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,10,10,0.95); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; }
+        #playOverlay h2 { color: var(--color-primary); font-family: var(--font-heading); margin-bottom: 10px;}
+        #playOverlay p { color: rgba(255,255,255,0.7); text-align: center; line-height: 1.6; font-size: 0.9rem;}
+    </style>
+</head>
+<body>
+
+    <div id="playOverlay" onclick="startCinematic()">
+        <h2>🎬 FULL DEMO REKAM</h2>
+        <p>Hero &rarr; Galeri &rarr; Form &rarr; Login Admin &rarr; Dashboard Admin.<br>Durasi ~60 detik.<br>Klik untuk memulai!</p>
+    </div>
+
+    <!-- Master Container -->
+    <div class="story-container" id="storyContainer">
+        <canvas id="confetti-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000;"></canvas>
+
+        <!-- Fake Cursor UI -->
+        <div class="cursor-dot" id="fakeCursorDot"></div>
+        <div class="cursor-outline" id="fakeCursorOutline"></div>
+
+        <!-- 1:1 Navbar -->
+        <nav class="navbar" id="mainNav">
+            <div class="navbar-brand">17 Agustus</div>
+            <div class="nav-right">
+                <div class="theme-toggle"><svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zM8 0a.5.5 0 0 1 .5v2a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5z..."/></svg></div>
+                <div class="nav-link" id="navGaleri">Galeri</div>
+                <button class="btn-nav" id="navDaftar">Daftar Lomba</button>
+            </div>
+        </nav>
+
+        <!-- SCENE 1: Hero + Scroll -->
+        <div class="scene active" id="scene1">
+            <div class="scroll-area" id="heroScroll">
+                <div class="hero-badge">PERINGATAN HUT RI</div>
+                <h1 class="hero-title">Rayakan<br>Keseruan<br><span style="color: var(--color-primary)">17 Agustus</span><br>Bersama Kami.</h1>
+                <div class="ss-card">
+                    <div class="ss-carousel">
+                        <div class="ss-slide active" id="slide1"><img src="images/IMG_2443.JPG"></div>
+                        <div class="ss-slide" id="slide2"><img src="images/IMG_2550.JPG"></div>
+                    </div>
+                </div>
+                <button class="btn-glow" id="heroBtn" style="margin-top: 10px;">DAFTAR SEKARANG</button>
+                
+                <!-- Feature Section -->
+                <div class="feature-section">
+                    <h2 style="font-size: 1.5rem; margin-bottom: 15px; text-align: center;">Kenapa Harus Join?</h2>
+                    <div class="feature-box" style="padding: 12px; margin-bottom: 10px;">
+                        <h3 style="font-size: 0.95rem; margin-bottom: 5px;">Daftar Hitungan Detik</h3>
+                        <p style="font-size: 0.75rem; color: #666; line-height: 1.4;">Tinggalkan cara lama. Buka web via HP, isi data, beres.</p>
+                    </div>
+                    <div class="feature-box" style="padding: 12px; margin-bottom: 10px;">
+                        <h3 style="font-size: 0.95rem; margin-bottom: 5px;">Pantau Real Time</h3>
+                        <p style="font-size: 0.75rem; color: #666; line-height: 1.4;">Cek jadwal lomba lengkap dan susunan acara secara langsung dari HP kamu.</p>
+                    </div>
+                    <div class="feature-box" style="padding: 12px; margin-bottom: 10px;">
+                        <h3 style="font-size: 0.95rem; margin-bottom: 5px;">Simpan Kenangan</h3>
+                        <p style="font-size: 0.75rem; color: #666; line-height: 1.4;">Semua momen keseruan masuk galeri publik. Kamu bisa buka dan kenang kapan pun.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 1B: Galeri -->
+        <div class="scene scene-galeri" id="sceneGaleri">
+            <h1 class="galeri-title">Galeri <span>Keseruan</span></h1>
+            <p class="galeri-desc">Momen tak terlupakan dari perayaan 17 Agustus tahun ini.</p>
+            <div class="galeri-grid">
+                <div class="galeri-item"><img src="images/IMG_2443.JPG"></div>
+                <div class="galeri-item"><img src="images/IMG_2550.JPG"></div>
+                <div class="galeri-item"><img src="images/IMG_2582.JPG"></div>
+                <div class="galeri-item" id="galeriItem4">
+                    <img src="images/IMG_2817.JPG">
+                    <div class="galeri-item-overlay">
+                        <span class="galeri-tag">Momen 17an</span>
+                        <h3 style="color:#fff; font-size:0.8rem; margin-top:2px;">Dokumentasi #4</h3>
+                    </div>
+                </div>
+                <div class="galeri-item"><img src="images/IMG_2892.JPG"></div>
+                <div class="galeri-item"><img src="images/IMG_2704.JPG"></div>
+            </div>
+        </div>
+        <div class="lightbox" id="lightbox">
+            <span class="lightbox-close" id="lightboxClose">&times;</span>
+            <img src="images/IMG_2817.JPG">
+        </div>
+
+        <!-- SCENE 2: Form 3 Steps -->
+        <div class="scene scene-form" id="scene2">
+            <div class="glass-card-form" style="margin-top: 15px;">
+                <h1 class="form-title">Formulir<br>Pendaftaran</h1>
+                <p class="form-subtitle">Ikuti 3 langkah mudah untuk<br>bergabung dalam keseruan 17-an.</p>
+                <div class="wizard-progress">
+                    <div class="wizard-progress-bar" id="wizardBar"></div>
+                    <div class="wizard-step-dot active" id="dot1">1</div>
+                    <div class="wizard-step-dot" id="dot2">2</div>
+                    <div class="wizard-step-dot" id="dot3">3</div>
+                </div>
+                <!-- Step 1 -->
+                <div class="form-section active" id="step1">
+                    <label class="form-label">NAMA LENGKAP</label>
+                    <div class="form-control" id="inputNama"></div>
+                    <label class="form-label">NOMOR HP / WHATSAPP</label>
+                    <div class="form-control" id="inputHp"></div>
+                    <div class="btn-wrapper"><button class="btn-next" id="btnNext1">Selanjutnya &rarr;</button></div>
+                </div>
+                <!-- Step 2 -->
+                <div class="form-section" id="step2">
+                    <label class="form-label">BLOK / NOMOR RUMAH</label>
+                    <div class="form-control" id="inputBlok"></div>
+                    <label class="form-label">RT (RUKUN TETANGGA)</label>
+                    <div class="form-control select" id="inputRt"><span id="rtValue">-- Pilih RT --</span></div>
+                    <div class="btn-wrapper"><button class="btn-next" id="btnNext2" style="width:100%">Selanjutnya &rarr;</button></div>
+                </div>
+                <!-- Step 3 -->
+                <div class="form-section" id="step3">
+                    <div class="lomba-label" id="lombaCard">
+                        <div class="lomba-title">Estafet Tepung Gandum</div>
+                        <span class="lomba-tag">Anak-anak</span>
+                        <div class="check-indicator"></div>
+                    </div>
+                    <div class="btn-wrapper"><button class="btn-next" id="btnSubmit" style="width:100%">Selesai & Daftar</button></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 3: Success -->
+        <div class="scene scene-success" id="scene3">
+            <div id="loadingState">
+                <div class="spinner-modern"></div>
+                <p>Memproses Data...</p>
+            </div>
+            <div id="successState" style="display:none; width:100%;">
+                <div class="glass-card-form" style="display:flex; flex-direction:column; align-items:center;">
+                    <div class="success-bar" id="successBar">✓ Pendaftaran berhasil!</div>
+                    <h1 class="form-title" style="font-size:2rem; margin-bottom:10px;">Sampai Jumpa di<br>Hari Kemerdekaan!</h1>
+                    <div style="font-size:2rem;">🎉</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SCENE 3B: ADMIN LOGIN -->
+        <div class="scene scene-admin-login" id="sceneAdminLogin">
+            <div class="login-card">
+                <h2 class="login-title">Masuk Panel Admin</h2>
+                <p class="login-subtitle">Silakan otentikasi untuk mengelola sistem pendaftaran lomba.</p>
+                <div style="text-align: left; margin-bottom: 15px;">
+                    <label class="form-label">Username</label>
+                    <div class="form-control" id="inputUsername" style="margin-bottom:0;"></div>
+                </div>
+                <div style="text-align: left; margin-bottom: 25px;">
+                    <label class="form-label">Password</label>
+                    <div class="form-control" id="inputPassword" style="margin-bottom:0;"></div>
+                </div>
+                <button class="btn-glow" id="btnLogin" style="width: 100%;">LOGIN SEKARANG</button>
+            </div>
+        </div>
+
+        <!-- SCENE 4: ADMIN PANEL -->
+        <div class="scene scene-admin" id="sceneAdmin">
+            <div class="admin-scroll" id="adminScroll">
+                <button class="menu-toggle">☰ Menu Admin</button>
+                <h1 style="font-size: 1.5rem; margin-bottom: 5px; color:#fff;">Dashboard Analitik</h1>
+                <p style="font-size: 0.8rem; color:#ccc; margin-bottom: 20px;">Halo, admin. Selamat datang di panel admin.</p>
+                
+                <div class="admin-card">
+                    <h3 style="font-size: 1rem; margin-bottom: 5px;">Total Pendaftar</h3>
+                    <p style="font-size: 2rem; color: var(--color-primary); font-weight:bold;">124</p>
+                </div>
+                <div class="admin-card">
+                    <h3 style="font-size: 1rem; margin-bottom: 5px;">Total Lomba</h3>
+                    <p style="font-size: 2rem; color: var(--color-primary); font-weight:bold;">8</p>
+                </div>
+
+                <div class="admin-card">
+                    <h3 style="font-size: 1rem; margin-bottom: 5px;">Manajemen Semua Pendaftar (CRUD)</h3>
+                    <p style="font-size: 0.75rem; color:#ccc; margin-bottom: 10px;">Klik nama pendaftar untuk melihat detail, mengubah, atau menghapus data mereka.</p>
+                    <table class="admin-table">
+                        <tr><th>Nama Pendaftar</th><th>Status</th></tr>
+                        <tr>
+                            <td><a href="#" id="adminClickUser" style="color:#4ade80; text-decoration:underline; font-weight:bold;">Budi Santoso</a><br><span style="font-size:0.6rem; color:#aaa;">Blok A No. 17 / RT 03</span></td>
+                            <td><span class="status-badge status-wait" id="adminStatusText">Menunggu</span></td>
+                        </tr>
+                        <tr>
+                            <td>Siti Aminah<br><span style="font-size:0.6rem; color:#aaa;">Blok C No. 22 / RT 01</span></td>
+                            <td><span class="status-badge status-ok">Disetujui</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="admin-modal" id="adminModal">
+                <div class="admin-card" style="width: 100%; background:#1a1a2e; padding: 20px;">
+                    <h2 style="font-size:1.2rem; margin-bottom:15px; color:#fff;">Detail & Edit Pendaftar</h2>
+                    <div style="font-size:0.8rem; margin-bottom: 20px; color:#ccc;">
+                        <label class="form-label" style="color:#ccc;">Nama Lengkap</label>
+                        <div class="form-control" style="background:rgba(0,0,0,0.3); padding:8px; margin-bottom:10px;">Budi Santoso</div>
+                        <label class="form-label" style="color:#ccc;">Blok / RT</label>
+                        <div class="form-control" style="background:rgba(0,0,0,0.3); padding:8px; margin-bottom:10px;">Blok A No. 17 / RT 03</div>
+                    </div>
+                    <button class="btn-glow" id="btnSetuju" style="background: #28a745; width:100%; font-size: 0.85rem; padding: 12px; margin-bottom: 10px;">Setujui (Update Status)</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+        function moveCursor(elId, duration = 600, offsetX = 0, offsetY = 0) {
+            const el = document.getElementById(elId);
+            const rect = el.getBoundingClientRect();
+            const containerRect = document.getElementById('storyContainer').getBoundingClientRect();
+            
+            const x = (rect.left - containerRect.left) + (rect.width / 2) + offsetX;
+            const y = (rect.top - containerRect.top) + (rect.height / 2) + offsetY;
+            
+            const outline = document.getElementById('fakeCursorOutline');
+            const dot = document.getElementById('fakeCursorDot');
+            outline.style.transitionDuration = duration + 'ms';
+            dot.style.transitionDuration = (duration - 50) + 'ms';
+            
+            outline.style.left = x + 'px'; outline.style.top = y + 'px';
+            dot.style.left = x + 'px'; dot.style.top = y + 'px';
+        }
+
+        async function typeInput(elementId, text, isPassword = false) {
+            const el = document.getElementById(elementId);
+            el.innerHTML = ''; el.classList.add('typing');
+            for (let i = 0; i < text.length; i++) {
+                el.innerHTML += isPassword ? '•' : text.charAt(i);
+                await wait(40 + Math.random() * 30); // Fast typing for speed
+            }
+            await wait(100); el.classList.remove('typing');
+        }
+
+        async function clickElement(elId) {
+            const el = document.getElementById(elId);
+            const outline = document.getElementById('fakeCursorOutline');
+            outline.classList.add('hover');
+            if(el) el.classList.add('hover-effect');
+            await wait(200);
+            outline.classList.add('click');
+            await wait(150);
+            outline.classList.remove('click');
+            outline.classList.remove('hover');
+            if(el) el.classList.remove('hover-effect');
+        }
+
+        async function startCinematic() {
+            document.getElementById('playOverlay').style.display = 'none';
+            const outline = document.getElementById('fakeCursorOutline');
+            const dot = document.getElementById('fakeCursorDot');
+            
+            outline.style.left = '180px'; outline.style.top = '600px';
+            dot.style.left = '180px'; dot.style.top = '600px';
+
+            // 1. HERO & SCROLL
+            await wait(1000); 
+            document.getElementById('heroScroll').style.transform = 'translateY(-480px)';
+            await wait(2500);
+            document.getElementById('heroScroll').style.transform = 'translateY(0)';
+            await wait(1500);
+            
+            // 2. NAVIGATE TO GALERI
+            moveCursor('navGaleri', 800);
+            await wait(800);
+            await clickElement('navGaleri');
+            document.getElementById('scene1').classList.remove('active');
+            
+            // 3. GALERI SCENE
+            document.getElementById('sceneGaleri').classList.add('active');
+            await wait(800);
+            moveCursor('galeriItem4', 800);
+            await wait(800);
+            document.getElementById('galeriItem4').classList.add('hover-active');
+            outline.classList.add('hover');
+            await wait(1000);
+            outline.classList.add('click');
+            await wait(150);
+            outline.classList.remove('click'); outline.classList.remove('hover');
+            document.getElementById('lightbox').classList.add('active');
+            await wait(1200);
+            moveCursor('lightboxClose', 500);
+            await wait(500);
+            await clickElement('lightboxClose');
+            document.getElementById('lightbox').classList.remove('active');
+            await wait(500);
+
+            // 4. NAVIGATE TO FORM
+            moveCursor('navDaftar', 800);
+            await wait(800);
+            await clickElement('navDaftar');
+            document.getElementById('sceneGaleri').classList.remove('active');
+
+            // 5. FORM SCENE
+            document.getElementById('scene2').classList.add('active');
+            await wait(500);
+            await typeInput('inputNama', 'Budi Santoso');
+            await typeInput('inputHp', '08123456789');
+            moveCursor('btnNext1', 500);
+            await wait(500);
+            await clickElement('btnNext1');
+            
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            document.getElementById('wizardBar').style.width = '50%';
+            document.getElementById('dot2').classList.add('active');
+            document.getElementById('dot1').classList.replace('active', 'completed');
+            await wait(500);
+
+            await typeInput('inputBlok', 'Blok A No. 17');
+            document.getElementById('rtValue').innerText = 'RT 03';
+            moveCursor('btnNext2', 500);
+            await wait(500);
+            await clickElement('btnNext2');
+
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+            document.getElementById('wizardBar').style.width = '100%';
+            document.getElementById('dot3').classList.add('active');
+            document.getElementById('dot2').classList.replace('active', 'completed');
+            await wait(500);
+
+            moveCursor('lombaCard', 500);
+            await wait(500);
+            outline.classList.add('click');
+            document.getElementById('lombaCard').classList.add('checked');
+            await wait(150); outline.classList.remove('click');
+            await wait(300);
+
+            moveCursor('btnSubmit', 500);
+            await wait(500);
+            await clickElement('btnSubmit');
+            document.getElementById('scene2').classList.remove('active');
+            document.getElementById('mainNav').style.transform = 'translateY(-100%)';
+            outline.style.opacity = '0'; dot.style.opacity = '0';
+            await wait(300);
+
+            // 6. SUCCESS & CONFETTI
+            document.getElementById('scene3').classList.add('active');
+            await wait(1500);
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('successState').style.display = 'block';
+            setTimeout(() => { document.getElementById('successBar').style.opacity = '1'; document.getElementById('successBar').style.transform = 'translateY(0)'; }, 50);
+
+            var myCanvas = document.getElementById('confetti-canvas');
+            var myConfetti = confetti.create(myCanvas, { resize: true, useWorker: true });
+            var end = Date.now() + 3000;
+            (function frame() {
+                myConfetti({ particleCount: 5, angle: 60, spread: 60, origin: { x: 0 }, colors: ['#ffffff', '#ff0000'] });
+                myConfetti({ particleCount: 5, angle: 120, spread: 60, origin: { x: 1 }, colors: ['#ffffff', '#ff0000'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+            await wait(3500);
+
+            // 7. TRANSITION TO ADMIN LOGIN
+            document.getElementById('scene3').classList.remove('active');
+            await wait(600); // Dark fade
+            document.getElementById('sceneAdminLogin').classList.add('active');
+            outline.style.opacity = '1'; dot.style.opacity = '1';
+            
+            // Type login details
+            await wait(800);
+            await typeInput('inputUsername', 'admin');
+            await wait(300);
+            await typeInput('inputPassword', 'password', true);
+            await wait(500);
+
+            // Click Login
+            moveCursor('btnLogin', 600);
+            await wait(600);
+            await clickElement('btnLogin');
+            
+            // 8. ADMIN DASHBOARD
+            document.getElementById('sceneAdminLogin').classList.remove('active');
+            await wait(400);
+            outline.style.opacity = '0'; dot.style.opacity = '0'; // Hide briefly during transition
+            document.getElementById('sceneAdmin').classList.add('active');
+            await wait(1000);
+            
+            // Scroll down admin panel
+            document.getElementById('adminScroll').style.transform = 'translateY(-180px)';
+            await wait(1200);
+
+            // Click User for Verification
+            outline.style.opacity = '1'; dot.style.opacity = '1';
+            moveCursor('adminClickUser', 800);
+            await wait(800);
+            await clickElement('adminClickUser');
+            
+            // Show Modal
+            document.getElementById('adminModal').classList.add('active');
+            await wait(1000);
+
+            // Click Setujui
+            moveCursor('btnSetuju', 800);
+            await wait(800);
+            await clickElement('btnSetuju');
+            
+            // Close modal & Update status
+            document.getElementById('adminModal').classList.remove('active');
+            document.getElementById('adminStatusText').className = 'status-badge status-ok';
+            document.getElementById('adminStatusText').innerText = 'Disetujui';
+            
+            outline.style.opacity = '0'; dot.style.opacity = '0';
+            await wait(2000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+PRODUCT REQUIREMENTS DOCUMENT (PRD)
+Website Pendaftaran Lomba &amp; Dokumentasi Kegiatan
+Peringatan Hari Kemerdekaan Republik Indonesia — 17 Agustus
+Versi 1.0  |  Dokumen Perencanaan Produk
+Versi
+Tanggal
+Keterangan
+1.0
+-
+Draf awal PRD: ringkasan, fitur, desain, dan rencana teknis
+1.1
+-
+Penajaman konteks ke lingkup warga RT: field pendaftaran spesifik, master data lomba di panel Admin, dan alur verifikasi pendaftar sebelum disetujui
+1.2
+-
+Penekanan pendekatan mobile-first, penambahan Dashboard Analitik Admin untuk evaluasi lomba terpopuler antar tahun
+
+1. Ringkasan Produk
+Website ini dibangun untuk mendukung penyelenggaraan peringatan Hari Kemerdekaan Republik Indonesia (17 Agustus), dengan dua fungsi inti: (1) menjadi kanal pendaftaran lomba secara daring bagi peserta, dan (2) menjadi galeri dokumentasi yang menampilkan foto dan video kegiatan sebagai portofolio acara. Website dirancang ringan, mobile-friendly, dan dengan identitas visual yang khas — bukan template generik yang terasa dibuat asal cepat.
+2. Latar Belakang &amp; Masalah
+Pendaftaran lomba 17 Agustus secara manual (catatan kertas, grup chat) rawan data ganda, sulit direkap, dan tidak rapi untuk dijadikan arsip panitia.
+Dokumentasi kegiatan tahun-tahun sebelumnya sering tersebar di banyak akun media sosial pribadi, sulit ditemukan kembali, dan tidak terkumpul dalam satu tempat resmi.
+Panitia membutuhkan satu kanal resmi yang bisa dibagikan lewat satu tautan saja, baik untuk pendaftaran maupun untuk menunjukkan dokumentasi acara ke warga/peserta/sponsor.
+3. Tujuan Produk
+Menyediakan formulir pendaftaran lomba daring yang mudah diisi dari HP, lengkap dengan pilihan kategori lomba dan konfirmasi otomatis.
+Menyediakan galeri dokumentasi kegiatan (foto &amp; video) yang rapi, terorganisir per lomba/kegiatan, dan mudah dijelajahi.
+Menghadirkan identitas visual yang mencerminkan semangat kemerdekaan tanpa terasa seperti template generik atau hasil instan dari alat pembuat otomatis.
+4. Target Pengguna &amp; Peran
+Peran
+Deskripsi
+Kebutuhan Utama
+Warga (Calon Peserta)
+Warga RT setempat yang ingin mendaftarkan diri ikut lomba
+Melihat daftar lomba yang tersedia, mendaftar dengan cepat dari HP, dapat status pendaftaran yang jelas
+Pengunjung Umum
+Warga yang ingin melihat kegiatan tanpa mendaftar
+Melihat galeri foto/video, susunan acara, info panitia
+Admin (Panitia)
+Pengurus RT/panitia yang mengelola acara &amp; website
+Mengelola master data lomba, memverifikasi pendaftar, melihat rekap peserta per lomba, mengunggah dokumentasi
+5. Ruang Lingkup Fitur
+5.1 Beranda
+Hero section dengan tema acara, tanggal pelaksanaan, dan hitung mundur (countdown) menuju hari-H
+Ringkasan singkat acara dan ajakan (call-to-action) menuju halaman pendaftaran
+Cuplikan galeri dokumentasi terbaru sebagai pratinjau
+5.2 Info &amp; Pendaftaran Lomba (Warga)
+Daftar lomba ditampilkan dinamis, diambil langsung dari master data lomba yang dikelola Admin (bukan teks statis yang ditulis manual di halaman)
+Formulir pendaftaran dengan field: Nama Lengkap, Blok/Nomor Rumah, RT, Nomor HP/WhatsApp, dan pilihan Jenis Lomba (dapat memilih lebih dari 1 lomba dalam satu kali pendaftaran)
+Validasi input dasar (field wajib tidak kosong, format nomor HP valid)
+Setelah submit, status pendaftaran otomatis berstatus &apos;Menunggu Verifikasi&apos; — belum langsung tercatat sebagai peserta resmi
+Halaman/pesan konfirmasi setelah submit, menjelaskan bahwa pendaftaran akan diverifikasi Admin terlebih dahulu
+Warga dapat mengecek status pendaftarannya sendiri (Menunggu Verifikasi / Disetujui / Ditolak) menggunakan nomor HP yang didaftarkan
+5.3 Susunan Acara
+Jadwal kegiatan per waktu dan tempat, ditampilkan sebagai garis waktu (timeline)
+5.4 Galeri Dokumentasi
+Kumpulan foto dan video, dikelompokkan per lomba atau per sesi kegiatan
+Tampilan grid dengan mode perbesar gambar (lightbox) saat foto diklik
+Dapat diperbarui panitia dari tahun ke tahun tanpa mengubah struktur halaman
+5.5 Panitia &amp; Kontak
+Daftar susunan panitia inti
+Kontak resmi (WhatsApp/Instagram) untuk pertanyaan calon peserta
+5.6 Panel Admin (Panitia)
+Login khusus Admin, terpisah dari akses warga (warga tidak perlu login untuk mendaftar)
+Master Data Lomba — Admin dapat menambah, mengubah, atau menghapus jenis lomba kapan saja (nama lomba, deskripsi singkat, kategori usia, kuota jika dibatasi). Perubahan ini otomatis langsung memengaruhi pilihan lomba yang muncul di formulir pendaftaran warga, tanpa perlu ubah kode program
+Verifikasi Pendaftar — Admin melihat daftar warga yang mendaftar dengan status &apos;Menunggu Verifikasi&apos;, memeriksa kesesuaian data (misal validitas Blok/RT), lalu menyetujui atau menolak tiap pendaftaran
+Setiap pendaftaran yang ditolak dapat diberi catatan alasan penolakan (misal: RT tidak sesuai wilayah, data ganda, dsb.)
+Rekap Peserta — Admin dapat melihat dan mengunduh daftar peserta yang sudah disetujui, dikelompokkan per jenis lomba, untuk keperluan pelaksanaan hari-H
+Kelola Galeri — Admin mengunggah dan menghapus foto/video dokumentasi
+5.7 Dashboard Analitik (Admin) — Bahan Evaluasi Tahun Berikutnya
+Dashboard ini secara khusus membantu panitia memutuskan lomba apa yang layak dipertahankan atau perlu diganti pada penyelenggaraan tahun berikutnya, berdasarkan data nyata jumlah peminat, bukan asumsi/perkiraan panitia semata.
+Peringkat Lomba Terpopuler — daftar lomba diurutkan dari jumlah pendaftar terbanyak ke tersedikit (berdasarkan pendaftar berstatus Disetujui), ditampilkan dalam bentuk grafik batang sederhana
+Penanda &apos;Lomba Favorit&apos; dan &apos;Lomba Sepi Peminat&apos; — sistem otomatis menonjolkan beberapa lomba dengan pendaftar terbanyak dan tersedikit, sebagai sinyal cepat tanpa panitia perlu membaca seluruh angka satu per satu
+Perbandingan Antar Tahun — jika data tahun sebelumnya tersedia, grafik menampilkan tren naik/turun peminat suatu lomba dari tahun ke tahun, untuk melihat apakah minat terhadap lomba tersebut memang menurun konsisten atau hanya turun sesaat
+Ringkasan Total — total pendaftar keseluruhan, total peserta per RT, dan rasio pendaftaran disetujui vs ditolak
+Ekspor Laporan — hasil analitik dapat diunduh (format sederhana seperti spreadsheet) untuk dibahas panitia saat rapat evaluasi pasca-acara
+
+6. Prinsip Desain — Otentik, Bukan Terasa Dibuat Serba-Otomatis
+Website acara 17 Agustus sangat rawan terlihat generik: gradasi merah-putih polos, ikon bendera clip-art, dan font tebal standar yang membuatnya terasa seperti template Canva gratisan atau hasil instan tanpa arah desain. Berikut prinsip yang diterapkan agar tampilan terasa dirancang dengan sengaja:
+6.1 Palet Warna — Merah Terracotta, Bukan Merah Saturasi Penuh
+Warna
+Kode Hex
+Peran
+Merah Marun Redup
+#8B1E24
+Warna utama — untuk header, aksen, tombol utama
+Merah Gelap
+#5E1418
+Latar gelap/kontras, bagian footer
+Emas Kuningan Redup
+#B8863B
+Aksen sekunder — pengganti kuning cerah yang klise
+Krem Hangat
+#F3EDE3
+Latar utama, pengganti putih polos
+Arang
+#2B2622
+Warna teks utama, bukan hitam pekat
+Kombinasi ini sengaja dibuat lebih redup/muted dibanding merah-putih standar bendera, supaya terasa seperti keputusan desain editorial, bukan warna default yang diambil langsung dari palet bendera tanpa diolah.
+6.2 Tipografi
+Judul memakai typeface serif tegas (mis. Georgia, Fraunces, atau Source Serif) — kesan lebih &apos;dirancang&apos; dan berkarakter, berbeda dari font sans-serif tebal default yang sering dipakai template event generik.
+Isi/body teks memakai sans-serif netral (mis. Inter/Calibri) supaya tetap mudah dibaca di layar HP.
+Hindari efek teks 3D, drop shadow tebal, atau gaya &apos;meriah&apos; berlebihan pada judul — cukup 1 elemen aksen dekoratif per section (misal garis bawah tipis emas), bukan banyak ornamen sekaligus.
+6.3 Elemen Visual
+Gunakan foto dokumentasi asli kegiatan tahun sebelumnya sebagai elemen utama, bukan ilustrasi vektor generik bertema kemerdekaan (bendera bertebaran, kembang api clip-art, dsb).
+Jika perlu elemen dekoratif, gunakan bentuk geometris sederhana (garis, lingkaran redup, tekstur kertas/linen halus) alih-alih ikon-ikon bertema 17 Agustus yang sudah terlalu sering dipakai template lain.
+Layout dibuat sedikit asimetris pada bagian hero (misal judul rata kiri dengan foto besar di kanan), bukan semua elemen di-center secara default seperti kebanyakan landing page instan.
+6.4 Nada Konten
+Salin (copywriting) ditulis dengan nada hangat dan spesifik terhadap acara ini (nama acara, lokasi, tahun), bukan kalimat generik seperti &apos;Mari rayakan kemerdekaan bersama kami!&apos; yang bisa dipakai acara mana saja.
+6.5 Prioritas Mobile-First (Ditekankan Khusus)
+Mayoritas warga akan mengakses website ini dari HP, bukan laptop/desktop — baik saat mendaftar maupun saat melihat galeri dokumentasi. Karena itu, desain dan pengembangan wajib mengikuti pendekatan mobile-first: dirancang dan diuji utama untuk layar HP terlebih dahulu, baru disesuaikan ke layar lebih besar — bukan sebaliknya (desktop dulu, baru sekadar &apos;diciutkan&apos; ke HP).
+Formulir pendaftaran ditampilkan 1 kolom penuh (bukan berdampingan 2 kolom) agar nyaman diisi dengan satu tangan di HP
+Semua tombol dan elemen dapat disentuh (tap target) berukuran cukup besar untuk jari, tidak mengandalkan hover seperti di desktop
+Ukuran teks dasar cukup besar untuk dibaca tanpa perlu zoom manual di layar kecil
+Galeri foto/video dioptimalkan agar tetap ringan diakses lewat paket data seluler, bukan hanya asumsi koneksi WiFi kencang
+Tombol aksi utama (misal &apos;Daftar Sekarang&apos;) mudah dijangkau ibu jari, idealnya menempel di area bawah layar (sticky) saat di HP
+Navigasi antar halaman sederhana satu tangan — hindari menu berlapis/dropdown rumit yang lebih cocok untuk mouse
+Pengujian tampilan dilakukan pertama-tama langsung di HP asli sebelum dicek di layar desktop, bukan sebaliknya
+
+7. Model Data Sederhana
+Karena melibatkan master data lomba yang dikelola dinamis dan satu warga bisa mendaftar lebih dari satu lomba sekaligus, struktur data dirancang dengan 4 entitas berikut:
+Tabel
+Fungsi
+Field Utama
+lomba
+Master data jenis lomba, dikelola penuh oleh Admin
+nama_lomba, deskripsi, kategori_usia, kuota
+pendaftar
+Data warga yang mendaftar
+nama, blok_rumah, rt, no_hp, tahun_acara, status_verifikasi, catatan_admin
+pendaftar_lomba
+Penghubung pendaftar dengan lomba yang dipilih (relasi banyak-ke-banyak, karena 1 warga bisa ikut beberapa lomba)
+id_pendaftar, id_lomba
+admin
+Akun panitia untuk login ke Panel Admin
+username, password, nama_lengkap
+Status pada tabel pendaftar memiliki 3 kemungkinan nilai: Menunggu Verifikasi (default saat baru submit), Disetujui, dan Ditolak — hanya pendaftar berstatus Disetujui yang dihitung sebagai peserta resmi pada rekap Admin. Kolom tahun_acara ditambahkan khusus agar data pendaftar tidak tertimpa/terhapus setiap tahun, sehingga Dashboard Analitik dapat membandingkan minat warga terhadap suatu lomba dari tahun ke tahun.
+8. Alur Kerja Utama
+8.1 Alur Pendaftaran &amp; Verifikasi Warga
+Warga membuka halaman Info &amp; Pendaftaran Lomba, memilih 1 atau beberapa lomba dari daftar yang tersedia (diambil dari master data lomba).
+Warga mengisi formulir: Nama, Blok/Nomor Rumah, RT, Nomor HP.
+Sistem memvalidasi input (field wajib, format nomor HP), lalu menyimpan data dengan status &apos;Menunggu Verifikasi&apos;.
+Warga menerima halaman konfirmasi bahwa pendaftaran sedang menunggu verifikasi Admin.
+Admin membuka Panel Admin, meninjau data pendaftar yang berstatus &apos;Menunggu Verifikasi&apos;.
+Admin menyetujui (status menjadi &apos;Disetujui&apos;) atau menolak (status menjadi &apos;Ditolak&apos;, dengan catatan alasan) pendaftaran tersebut.
+Warga dapat mengecek status terbaru pendaftarannya menggunakan nomor HP yang didaftarkan.
+8.2 Alur Pengelolaan Master Data Lomba (Admin)
+Admin membuka menu Master Data Lomba di Panel Admin.
+Admin dapat menambah lomba baru, mengubah detail lomba yang sudah ada, atau menghapus lomba yang tidak jadi diadakan.
+Perubahan langsung tercermin di halaman pendaftaran publik — warga hanya bisa memilih dari lomba yang saat itu berstatus aktif.
+8.3 Alur Pengelolaan Dokumentasi (Admin)
+Admin mengunggah foto/video baru ke galeri, dikelompokkan berdasarkan lomba/sesi.
+Media baru otomatis tampil di halaman Galeri dan cuplikan Beranda.
+9. Kebutuhan Non-Fungsional
+Aspek
+Kebutuhan
+Platform
+Mobile-first — rancangan dan pengujian diprioritaskan untuk layar HP terlebih dahulu, karena mayoritas warga mengakses dari HP, bukan desktop
+Performa
+Waktu muat halaman awal di bawah 3 detik pada koneksi seluler standar
+Media
+Gambar dikompres otomatis agar galeri tidak memberatkan saat diakses banyak orang bersamaan
+Ketersediaan
+Website dapat diakses publik selama periode pendaftaran hingga selesai acara
+Kemudahan Kelola
+Panitia dapat memperbarui daftar lomba dan galeri tanpa perlu keahlian teknis mendalam
+10. Batasan Produk
+Tidak mencakup pembayaran biaya pendaftaran daring (jika lomba berbayar, pembayaran dilakukan luring/manual)
+Tidak mencakup sistem penilaian/skor lomba otomatis — hasil lomba diumumkan luring oleh panitia
+Verifikasi pendaftar dilakukan manual oleh Admin (memeriksa kesesuaian Blok/RT), bukan verifikasi otomatis berbasis sistem
+Tampilan publik (Beranda, Pendaftaran) hanya menampilkan 1 periode acara yang sedang aktif berjalan; data tahun-tahun sebelumnya tetap tersimpan di database khusus untuk keperluan Dashboard Analitik, namun tidak ditampilkan ke warga secara publik
+Perbandingan tren antar tahun pada Dashboard Analitik baru dapat ditampilkan mulai penyelenggaraan tahun kedua, karena tahun pertama belum memiliki data pembanding
+11. Metrik Keberhasilan
+Seluruh alur pendaftaran dapat diselesaikan warga dari HP tanpa kendala teknis, tanpa perlu memperbesar (zoom) tampilan secara manual
+Admin dapat menambah/menghapus jenis lomba dari Panel Admin tanpa bantuan developer
+Admin dapat memverifikasi seluruh pendaftar masuk maksimal dalam 1x24 jam sejak pendaftaran diterima
+Panitia dapat merekap data peserta yang sudah disetujui per lomba tanpa proses hitung manual tambahan
+Dashboard Analitik dapat menunjukkan dengan jelas minimal 3 lomba terpopuler dan 3 lomba paling sedikit peminat setiap akhir periode pendaftaran, sebagai bahan rapat evaluasi panitia
+Galeri dokumentasi terisi dan dapat diakses publik maksimal 1x24 jam setelah kegiatan berlangsung
+Tampilan website mendapat kesan &apos;dirancang khusus&apos; dari umpan balik warga/peserta, bukan &apos;terlihat template&apos;

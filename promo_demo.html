@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promo 17 Agustus</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #cc0000 0%, #ff3333 50%, #ffffff 50%, #f0f0f0 100%);
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .text-layer {
+            position: absolute;
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+        }
+
+        h1 {
+            font-size: 5rem;
+            margin: 0;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+
+        p {
+            font-size: 2rem;
+            margin-top: 10px;
+            color: #fff;
+            font-weight: 400;
+        }
+
+        /* Animations */
+        .scene-1 {
+            animation: fadeInOut 4s ease-in-out forwards;
+        }
+
+        .scene-2 {
+            animation: fadeInOut 4s ease-in-out 4s forwards;
+        }
+
+        .scene-3 {
+            animation: fadeInStay 4s ease-in-out 8s forwards;
+        }
+
+        .scene-3 h1 {
+            color: #cc0000;
+            text-shadow: none;
+            background: #fff;
+            padding: 20px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(204,0,0,0.4);
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(50px) scale(0.9); }
+            15% { opacity: 1; transform: translateY(0) scale(1); }
+            85% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-50px) scale(1.1); }
+        }
+
+        @keyframes fadeInStay {
+            0% { opacity: 0; transform: scale(0.5); }
+            20% { opacity: 1; transform: scale(1.1); }
+            40% { opacity: 1; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .ribbon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: #cc0000;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="ribbon"></div>
+    <div class="container">
+        <div class="text-layer scene-1">
+            <h1>Semarak Kemerdekaan</h1>
+            <p>17 Agustus 1945 - 2026</p>
+        </div>
+        <div class="text-layer scene-2">
+            <h1>Bangkit Bersama</h1>
+            <p>Terus Melaju Untuk Indonesia Maju</p>
+        </div>
+        <div class="text-layer scene-3">
+            <h1>DIRGAHAYU RI!</h1>
+            <p style="color: #333; font-weight: 700;">Portofolio Website Siap Hadir</p>
+        </div>
+    </div>
+</body>
+</html>

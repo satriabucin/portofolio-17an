@@ -378,9 +378,10 @@
                 <div class="sidebar-brand">Panel Admin</div>
                 <div class="sidebar-menu">
                     <div class="sidebar-item active" id="menuDashboard">Dashboard</div>
-                    <div class="sidebar-item" id="menuJadwal">Jadwal Acara</div>
-                    <div class="sidebar-item" id="menuPeserta">Peserta Lomba</div>
-                    <div class="sidebar-item" id="menuLomba">Data Lomba</div>
+                    <div class="sidebar-item" id="menuLomba">Master Lomba</div>
+                    <div class="sidebar-item" id="menuPendaftar">Verifikasi Pendaftar</div>
+                    <div class="sidebar-item" id="menuPeserta">Daftar Peserta Lomba</div>
+                    <div class="sidebar-item" id="menuAudit">Audit Trail</div>
                 </div>
             </div>
 
@@ -407,23 +408,21 @@
                         </div>
                     </div>
 
-                    <!-- SUBSCENE: Jadwal -->
-                    <div class="admin-subscene" id="subJadwal">
-                        <h1 style="font-size: 1.2rem; margin-bottom: 15px; color:#fff;">Manajemen Jadwal</h1>
+                    <!-- SUBSCENE: Verifikasi Pendaftar -->
+                    <div class="admin-subscene" id="subPendaftar">
+                        <h1 style="font-size: 1.2rem; margin-bottom: 15px; color:#fff;">Verifikasi Pendaftar</h1>
                         <div class="admin-card">
-                            <button class="btn-glow" style="font-size:0.8rem; padding:8px; margin-bottom:15px;">+ Tambah Jadwal</button>
-                            <div class="timeline">
-                                <div class="timeline-item">
-                                    <div class="tl-time">07:00 - 08:00</div>
-                                    <div class="tl-title">Upacara Bendera</div>
-                                    <div class="tl-loc">Lapangan Warga</div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="tl-time">08:00 - 09:30</div>
-                                    <div class="tl-title">Lomba Makan Kerupuk</div>
-                                    <div class="tl-loc">Panggung Utama</div>
-                                </div>
-                            </div>
+                            <table class="admin-table">
+                                <tr><th>Nama Pendaftar</th><th>Aksi</th></tr>
+                                <tr>
+                                    <td><span style="font-weight:bold;">Siti Aminah</span><br><span style="font-size:0.6rem; color:#aaa;">Blok B No. 2 / RT 01</span></td>
+                                    <td><button class="btn-glow" style="font-size:0.7rem; padding:4px 8px; background:#4ade80; color:#111;">Verifikasi</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span style="font-weight:bold;">Agus Setiawan</span><br><span style="font-size:0.6rem; color:#aaa;">Blok C No. 5 / RT 02</span></td>
+                                    <td><button class="btn-glow" style="font-size:0.7rem; padding:4px 8px; background:#4ade80; color:#111;">Verifikasi</button></td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
 
@@ -461,6 +460,20 @@
                                 </div>
                                 <button style="background:none; border:1px solid #fff; color:#fff; border-radius:4px; padding:3px 8px; font-size:0.7rem;">Edit</button>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- SUBSCENE: Audit Trail -->
+                    <div class="admin-subscene" id="subAudit">
+                        <h1 style="font-size: 1.2rem; margin-bottom: 15px; color:#fff;">Audit Trail</h1>
+                        <div class="admin-card">
+                            <table class="admin-table">
+                                <tr><th>Timestamp</th><th>Aksi</th></tr>
+                                <tr>
+                                    <td><span style="font-size:0.7rem; color:#aaa;">2026-08-15 08:30</span></td>
+                                    <td>Admin <strong style="color:var(--color-primary)">Menyetujui</strong> pendaftar Siti Aminah</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
 
@@ -670,11 +683,11 @@
             document.getElementById('sceneAdminLayout').classList.add('active');
             await wait(1500);
 
-            // Open Menu & JADWAL
+            // Open Menu & Verifikasi Pendaftar
             moveCursor('btnMenuToggle', 500); await wait(600); await clickElement('btnMenuToggle');
             document.getElementById('adminSidebar').classList.add('open');
             await wait(500);
-            await switchSubscene('menuJadwal', 'subJadwal');
+            await switchSubscene('menuPendaftar', 'subPendaftar');
             await wait(1000);
 
             // Open Menu & PESERTA

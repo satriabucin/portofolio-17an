@@ -7,7 +7,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-2MJTRWEZVW');
     </script>
     <meta charset="UTF-8">
@@ -43,8 +42,8 @@
         .story-container { width: 360px; height: 640px; background: linear-gradient(135deg, rgba(10, 10, 10, 0.9) 0%, rgba(30, 5, 5, 0.8) 100%), url('images/IMG_2704.JPG') no-repeat center center; background-size: cover; position: relative; overflow: hidden; box-shadow: 0 0 50px rgba(255, 71, 71, 0.15); }
         
         /* Navbar */
-        .navbar { background: rgba(17, 17, 17, 0.9); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; position: absolute; top: 0; left: 0; width: 100%; z-index: 100; transition: transform 0.5s ease; }
-        .navbar-brand { font-family: var(--font-heading); font-size: 1rem; color: var(--color-primary-dark); font-weight: 800; white-space: nowrap;}
+        .navbar { background: rgba(17, 17, 17, 0.9); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; position: absolute; top: 0; left: 0; width: 100%; z-index: 100; transition: transform 0.5s ease; backdrop-filter: blur(10px); }
+        .navbar-brand { font-family: var(--font-heading); font-size: 1rem; color: var(--color-primary); font-weight: 800; white-space: nowrap;}
         .nav-right { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap;}
         .theme-toggle { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: #ccc; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
         .nav-link { font-size: 0.75rem; color: #fff; font-weight: 400; white-space: nowrap;}
@@ -58,17 +57,33 @@
 
         /* --- HERO SCENE --- */
         .hero-badge { color: var(--color-primary); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; font-size: 0.7rem; margin-top: 10px;}
-        .hero-title { font-family: var(--font-heading); font-size: 2.8rem; line-height: 1.05; margin-bottom: 25px; font-weight: 800; color: #fff; letter-spacing: -1.5px; }
-        .ss-card { background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 25px; }
-        .ss-carousel { position: relative; aspect-ratio: 3/4; overflow: hidden; border-radius: 6px; background: #222; }
+        
+        /* BlurText Mimic */
+        .hero-title { font-family: var(--font-heading); font-size: 2.5rem; line-height: 1.05; margin-bottom: 25px; font-weight: 800; color: #fff; letter-spacing: -1.5px; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .blur-word { display: inline-block; filter: blur(10px); opacity: 0; transform: translateY(10px); animation: blurIn 0.8s forwards; }
+        @keyframes blurIn { to { filter: blur(0); opacity: 1; transform: translateY(0); } }
+
+        .ss-card { background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 25px; box-shadow: 0 30px 60px rgba(0,0,0,0.6); backdrop-filter: blur(20px);}
+        .ss-carousel { position: relative; aspect-ratio: 4/3; overflow: hidden; border-radius: 6px; background: #222; }
         .ss-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s; }
         .ss-slide.active { opacity: 1; }
         .ss-slide img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8);}
         .btn-glow { display: inline-block; background-color: var(--color-primary); color: #fff; padding: 12px 24px; border: none; border-radius: 8px; font-family: var(--font-body); font-weight: 600; font-size: 1rem; width: 100%; text-align: center; box-shadow: 0 4px 6px rgba(139, 30, 36, 0.2); transition: all 0.3s ease; }
         .btn-glow.hover-effect { background-color: var(--color-primary-dark); transform: translateY(-2px); }
 
-        .feature-section { background: #fff; color: #111; padding: 25px 20px; border-radius: 12px; margin-top: 40px; }
-        .feature-box { background: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .feature-section { background: #fff; color: #111; padding: 25px 20px; border-radius: 12px; margin-top: 40px; text-align: center; }
+        
+        /* TrueFocus Mimic */
+        .true-focus { position: relative; display: inline-block; padding: 0 0.1em; }
+        .true-focus .corner { position: absolute; width: 1rem; height: 1rem; border: 3px solid var(--color-primary); filter: drop-shadow(0 0 4px var(--color-primary)); border-radius: 3px; }
+        .true-focus .tl { top: -6px; left: -6px; border-right: none; border-bottom: none; }
+        .true-focus .tr { top: -6px; right: -6px; border-left: none; border-bottom: none; }
+        .true-focus .bl { bottom: -6px; left: -6px; border-right: none; border-top: none; }
+        .true-focus .br { bottom: -6px; right: -6px; border-left: none; border-top: none; }
+
+        .feature-box { background: #fafafa; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: left; }
+        .feature-box h3 { font-size: 0.95rem; margin-bottom: 5px; color: #111;}
+        .feature-box p { font-size: 0.75rem; color: #666; line-height: 1.4; }
 
         /* --- GALERI SCENE --- */
         .scene-galeri { background: #0a0a0a; padding: 15px; top: 55px; height: calc(100% - 55px); overflow: hidden; text-align: left; }
@@ -94,7 +109,7 @@
         /* --- FORM SCENE --- */
         .scene-form { background-color: #0a0a0a; padding: 20px; overflow: hidden; top: 55px; height: calc(100% - 55px);}
         .back-btn { display: inline-block; border: 1px solid var(--glass-border); background: var(--glass-bg); padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; margin-bottom: 15px; color: #fff;}
-        .glass-card-form { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 25px 20px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
+        .glass-card-form { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 25px 20px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px);}
         .form-title { font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 5px; color:#fff; text-align: center; }
         .form-subtitle { text-align: center; font-size: 0.75rem; opacity: 0.6; margin-bottom: 25px; }
         .wizard-progress { display: flex; justify-content: space-between; position: relative; margin-bottom: 30px; }
@@ -140,21 +155,45 @@
         .login-title { font-weight: 800; color: #fff; margin-bottom: 5px; font-size:1.5rem; font-family: var(--font-heading);}
         .login-subtitle { color: #ccc; font-size: 0.75rem; margin-bottom: 20px; }
 
-        /* --- ADMIN SCENE --- */
-        .scene-admin { background: linear-gradient(135deg, rgba(10, 10, 10, 0.9) 0%, rgba(30, 5, 5, 0.9) 100%); top: 0; height: 100%; z-index: 200; overflow: hidden; padding: 0;}
-        .admin-scroll { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 15px; transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1); }
+        /* --- ADMIN SHARED SCENES --- */
+        .scene-admin-layout { background: linear-gradient(135deg, rgba(10, 10, 10, 0.9) 0%, rgba(30, 5, 5, 0.9) 100%); top: 0; height: 100%; z-index: 200; overflow: hidden; padding: 0;}
+        
+        /* Admin Sidebar Overlay Mimic */
+        .admin-sidebar { position: absolute; left: -250px; top: 0; width: 250px; height: 100%; background: #111; z-index: 210; transition: left 0.4s; padding: 20px 10px; border-right: 1px solid var(--glass-border);}
+        .admin-sidebar.open { left: 0; }
+        .sidebar-brand { font-family: var(--font-heading); color: var(--color-primary); font-size: 1.2rem; font-weight: 800; margin-bottom: 30px; text-align: center;}
+        .sidebar-menu { display: flex; flex-direction: column; gap: 10px; }
+        .sidebar-item { color: #ccc; padding: 10px; border-radius: 8px; font-size: 0.9rem; }
+        .sidebar-item.active { background: rgba(255, 71, 71, 0.2); color: var(--color-primary); font-weight: bold; }
+
+        .admin-scroll { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 15px; overflow: hidden; }
         .menu-toggle { display: inline-block; background: rgba(255,255,255,0.1); color: white; border: 1px solid var(--glass-border); padding: 8px 12px; border-radius: 5px; font-size: 0.9rem; margin-bottom: 20px; }
+        
+        /* Sub-scenes container */
+        .admin-content { position: relative; width: 100%; height: calc(100% - 60px); }
+        .admin-subscene { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; transition: 0.4s; }
+        .admin-subscene.active { opacity: 1; pointer-events: auto; }
+
         .admin-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(20px);}
         .admin-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; background: rgba(0,0,0,0.2); }
         .admin-table th { text-align: left; padding: 8px 5px; border-bottom: 1px solid rgba(255,255,255,0.1); color: #fff; font-weight: normal; background: rgba(255,255,255,0.05); }
         .admin-table td { padding: 10px 5px; border-bottom: 1px solid rgba(255,255,255,0.05); color:#fff; }
+        
         .status-badge { padding: 3px 8px; border-radius: 4px; font-size: 0.65rem; font-weight: bold; }
         .status-wait { background: #fff3cd; color: #856404; }
         .status-ok { background: #d4edda; color: #155724; }
-        
-        .admin-modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s; padding:20px;}
-        .admin-modal.active { opacity: 1; pointer-events: auto; }
 
+        /* Timeline / Jadwal UI */
+        .timeline { position: relative; border-left: 2px solid var(--color-primary); padding-left: 15px; margin-top: 10px; }
+        .timeline-item { margin-bottom: 20px; position: relative; }
+        .timeline-item::before { content: ''; position: absolute; width: 10px; height: 10px; background: var(--color-background); border: 2px solid var(--color-primary); border-radius: 50%; left: -22px; top: 5px; }
+        .tl-time { font-size: 0.7rem; color: var(--color-primary); font-weight: bold; margin-bottom: 2px;}
+        .tl-title { font-size: 0.85rem; color: #fff; font-weight: bold;}
+        .tl-loc { font-size: 0.7rem; color: #aaa; }
+
+        /* Lomba Cards */
+        .lomba-admin-card { background: rgba(255,255,255,0.1); border-radius: 8px; padding: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;}
+        
         #playOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,10,10,0.95); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; }
         #playOverlay h2 { color: var(--color-primary); font-family: var(--font-heading); margin-bottom: 10px;}
         #playOverlay p { color: rgba(255,255,255,0.7); text-align: center; line-height: 1.6; font-size: 0.9rem;}
@@ -164,7 +203,7 @@
 
     <div id="playOverlay" onclick="startCinematic()">
         <h2>🎬 FULL DEMO REKAM</h2>
-        <p>Hero &rarr; Galeri &rarr; Form &rarr; Login Admin &rarr; Dashboard Admin.<br>Durasi ~60 detik.<br>Klik untuk memulai!</p>
+        <p>Hero &rarr; Galeri &rarr; Form &rarr; Login Admin &rarr; Dashboard &rarr; Jadwal &rarr; Peserta &rarr; Lomba.<br>Durasi ~90 detik.<br>Klik untuk memulai!</p>
     </div>
 
     <!-- Master Container -->
@@ -189,7 +228,13 @@
         <div class="scene active" id="scene1">
             <div class="scroll-area" id="heroScroll">
                 <div class="hero-badge">PERINGATAN HUT RI</div>
-                <h1 class="hero-title">Rayakan<br>Keseruan<br><span style="color: var(--color-primary)">17 Agustus</span><br>Bersama Kami.</h1>
+                <h1 class="hero-title">
+                    <span class="blur-word" style="animation-delay: 0.1s;">Rayakan</span><br>
+                    <span class="blur-word" style="animation-delay: 0.2s;">Keseruan</span><br>
+                    <span class="blur-word" style="animation-delay: 0.3s; color: var(--color-primary)">17 Agustus</span><br>
+                    <span class="blur-word" style="animation-delay: 0.4s;">Bersama Kami.</span>
+                </h1>
+                
                 <div class="ss-card">
                     <div class="ss-carousel">
                         <div class="ss-slide active" id="slide1"><img src="images/IMG_2443.JPG"></div>
@@ -200,18 +245,21 @@
                 
                 <!-- Feature Section -->
                 <div class="feature-section">
-                    <h2 style="font-size: 1.5rem; margin-bottom: 15px; text-align: center;">Kenapa Harus Join?</h2>
-                    <div class="feature-box" style="padding: 12px; margin-bottom: 10px;">
-                        <h3 style="font-size: 0.95rem; margin-bottom: 5px;">Daftar Hitungan Detik</h3>
-                        <p style="font-size: 0.75rem; color: #666; line-height: 1.4;">Tinggalkan cara lama. Buka web via HP, isi data, beres.</p>
+                    <h2 style="font-size: 1.5rem; margin-bottom: 25px;">
+                        Kenapa Harus 
+                        <span class="true-focus">Join?<span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span></span>
+                    </h2>
+                    <div class="feature-box">
+                        <h3>Daftar Hitungan Detik</h3>
+                        <p>Tinggalkan cara lama. Buka web via HP, isi data, beres.</p>
                     </div>
-                    <div class="feature-box" style="padding: 12px; margin-bottom: 10px;">
-                        <h3 style="font-size: 0.95rem; margin-bottom: 5px;">Pantau Real Time</h3>
-                        <p style="font-size: 0.75rem; color: #666; line-height: 1.4;">Cek jadwal lomba lengkap dan susunan acara secara langsung dari HP kamu.</p>
+                    <div class="feature-box">
+                        <h3>Pantau Real Time</h3>
+                        <p>Cek jadwal lomba lengkap dan susunan acara secara langsung dari HP kamu.</p>
                     </div>
-                    <div class="feature-box" style="padding: 12px; margin-bottom: 10px;">
-                        <h3 style="font-size: 0.95rem; margin-bottom: 5px;">Simpan Kenangan</h3>
-                        <p style="font-size: 0.75rem; color: #666; line-height: 1.4;">Semua momen keseruan masuk galeri publik. Kamu bisa buka dan kenang kapan pun.</p>
+                    <div class="feature-box">
+                        <h3>Simpan Kenangan</h3>
+                        <p>Semua momen keseruan masuk galeri publik. Kamu bisa buka dan kenang kapan pun.</p>
                     </div>
                 </div>
             </div>
@@ -312,49 +360,98 @@
             </div>
         </div>
 
-        <!-- SCENE 4: ADMIN PANEL -->
-        <div class="scene scene-admin" id="sceneAdmin">
-            <div class="admin-scroll" id="adminScroll">
-                <button class="menu-toggle">☰ Menu Admin</button>
-                <h1 style="font-size: 1.5rem; margin-bottom: 5px; color:#fff;">Dashboard Analitik</h1>
-                <p style="font-size: 0.8rem; color:#ccc; margin-bottom: 20px;">Halo, admin. Selamat datang di panel admin.</p>
-                
-                <div class="admin-card">
-                    <h3 style="font-size: 1rem; margin-bottom: 5px;">Total Pendaftar</h3>
-                    <p style="font-size: 2rem; color: var(--color-primary); font-weight:bold;">124</p>
-                </div>
-                <div class="admin-card">
-                    <h3 style="font-size: 1rem; margin-bottom: 5px;">Total Lomba</h3>
-                    <p style="font-size: 2rem; color: var(--color-primary); font-weight:bold;">8</p>
-                </div>
-
-                <div class="admin-card">
-                    <h3 style="font-size: 1rem; margin-bottom: 5px;">Manajemen Semua Pendaftar (CRUD)</h3>
-                    <p style="font-size: 0.75rem; color:#ccc; margin-bottom: 10px;">Klik nama pendaftar untuk melihat detail, mengubah, atau menghapus data mereka.</p>
-                    <table class="admin-table">
-                        <tr><th>Nama Pendaftar</th><th>Status</th></tr>
-                        <tr>
-                            <td><a href="#" id="adminClickUser" style="color:#4ade80; text-decoration:underline; font-weight:bold;">Budi Santoso</a><br><span style="font-size:0.6rem; color:#aaa;">Blok A No. 17 / RT 03</span></td>
-                            <td><span class="status-badge status-wait" id="adminStatusText">Menunggu</span></td>
-                        </tr>
-                        <tr>
-                            <td>Siti Aminah<br><span style="font-size:0.6rem; color:#aaa;">Blok C No. 22 / RT 01</span></td>
-                            <td><span class="status-badge status-ok">Disetujui</span></td>
-                        </tr>
-                    </table>
+        <!-- SCENE 4: ADMIN MASTER LAYOUT -->
+        <div class="scene scene-admin-layout" id="sceneAdminLayout">
+            <div class="admin-sidebar" id="adminSidebar">
+                <div class="sidebar-brand">Panel Admin</div>
+                <div class="sidebar-menu">
+                    <div class="sidebar-item active" id="menuDashboard">Dashboard</div>
+                    <div class="sidebar-item" id="menuJadwal">Jadwal Acara</div>
+                    <div class="sidebar-item" id="menuPeserta">Peserta Lomba</div>
+                    <div class="sidebar-item" id="menuLomba">Data Lomba</div>
                 </div>
             </div>
-            
-            <div class="admin-modal" id="adminModal">
-                <div class="admin-card" style="width: 100%; background:#1a1a2e; padding: 20px;">
-                    <h2 style="font-size:1.2rem; margin-bottom:15px; color:#fff;">Detail & Edit Pendaftar</h2>
-                    <div style="font-size:0.8rem; margin-bottom: 20px; color:#ccc;">
-                        <label class="form-label" style="color:#ccc;">Nama Lengkap</label>
-                        <div class="form-control" style="background:rgba(0,0,0,0.3); padding:8px; margin-bottom:10px;">Budi Santoso</div>
-                        <label class="form-label" style="color:#ccc;">Blok / RT</label>
-                        <div class="form-control" style="background:rgba(0,0,0,0.3); padding:8px; margin-bottom:10px;">Blok A No. 17 / RT 03</div>
+
+            <div class="admin-scroll">
+                <button class="menu-toggle" id="btnMenuToggle">☰ Menu</button>
+                
+                <div class="admin-content">
+                    <!-- SUBSCENE: Dashboard -->
+                    <div class="admin-subscene active" id="subDashboard">
+                        <h1 style="font-size: 1.2rem; margin-bottom: 15px; color:#fff;">Dashboard Analitik</h1>
+                        <div class="admin-card">
+                            <h3 style="font-size: 0.9rem; margin-bottom: 5px;">Total Pendaftar</h3>
+                            <p style="font-size: 1.5rem; color: var(--color-primary); font-weight:bold;">124</p>
+                        </div>
+                        <div class="admin-card">
+                            <h3 style="font-size: 0.9rem; margin-bottom: 5px;">Status Pendaftar Terbaru</h3>
+                            <table class="admin-table">
+                                <tr><th>Nama Pendaftar</th><th>Status</th></tr>
+                                <tr>
+                                    <td><span style="color:#4ade80; font-weight:bold;">Budi Santoso</span><br><span style="font-size:0.6rem; color:#aaa;">Blok A No. 17 / RT 03</span></td>
+                                    <td><span class="status-badge status-ok">Disetujui</span></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                    <button class="btn-glow" id="btnSetuju" style="background: #28a745; width:100%; font-size: 0.85rem; padding: 12px; margin-bottom: 10px;">Setujui (Update Status)</button>
+
+                    <!-- SUBSCENE: Jadwal -->
+                    <div class="admin-subscene" id="subJadwal">
+                        <h1 style="font-size: 1.2rem; margin-bottom: 15px; color:#fff;">Manajemen Jadwal</h1>
+                        <div class="admin-card">
+                            <button class="btn-glow" style="font-size:0.8rem; padding:8px; margin-bottom:15px;">+ Tambah Jadwal</button>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="tl-time">07:00 - 08:00</div>
+                                    <div class="tl-title">Upacara Bendera</div>
+                                    <div class="tl-loc">Lapangan Warga</div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="tl-time">08:00 - 09:30</div>
+                                    <div class="tl-title">Lomba Makan Kerupuk</div>
+                                    <div class="tl-loc">Panggung Utama</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUBSCENE: Peserta Lomba -->
+                    <div class="admin-subscene" id="subPeserta">
+                        <h1 style="font-size: 1.2rem; margin-bottom: 15px; color:#fff;">Peserta (Sesi & Tim)</h1>
+                        <div class="admin-card">
+                            <h3 style="font-size: 0.9rem; margin-bottom: 10px; color:var(--color-primary);">Tarik Tambang</h3>
+                            <button class="btn-glow" id="btnRandom" style="font-size:0.75rem; padding:6px; margin-bottom:15px; width:100%; background:#28a745;">Acak Sesi & Tim</button>
+                            <table class="admin-table">
+                                <tr><th>Nama</th><th>Sesi/Tim</th></tr>
+                                <tr><td>Siti Aminah</td><td>Sesi 1 / Tim 1</td></tr>
+                                <tr><td>Joko Widodo</td><td>Sesi 1 / Tim 2</td></tr>
+                                <tr><td>Budi Santoso</td><td>Sesi 2 / Tim 1</td></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- SUBSCENE: Lomba -->
+                    <div class="admin-subscene" id="subLomba">
+                        <h1 style="font-size: 1.2rem; margin-bottom: 15px; color:#fff;">Data Lomba</h1>
+                        <div class="admin-card">
+                            <button class="btn-glow" style="font-size:0.8rem; padding:8px; margin-bottom:15px;">+ Tambah Lomba</button>
+                            <div class="lomba-admin-card">
+                                <div>
+                                    <div style="font-weight:bold; font-size:0.85rem;">Makan Kerupuk</div>
+                                    <div style="font-size:0.7rem; color:#aaa;">Anak-anak (Kuota: 20)</div>
+                                </div>
+                                <button style="background:none; border:1px solid #fff; color:#fff; border-radius:4px; padding:3px 8px; font-size:0.7rem;">Edit</button>
+                            </div>
+                            <div class="lomba-admin-card">
+                                <div>
+                                    <div style="font-weight:bold; font-size:0.85rem;">Tarik Tambang</div>
+                                    <div style="font-size:0.7rem; color:#aaa;">Bapak-bapak (Tim)</div>
+                                </div>
+                                <button style="background:none; border:1px solid #fff; color:#fff; border-radius:4px; padding:3px 8px; font-size:0.7rem;">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -386,7 +483,7 @@
             el.innerHTML = ''; el.classList.add('typing');
             for (let i = 0; i < text.length; i++) {
                 el.innerHTML += isPassword ? '•' : text.charAt(i);
-                await wait(40 + Math.random() * 30); // Fast typing for speed
+                await wait(40 + Math.random() * 30);
             }
             await wait(100); el.classList.remove('typing');
         }
@@ -400,168 +497,158 @@
             outline.classList.add('click');
             await wait(150);
             outline.classList.remove('click');
+            await wait(150);
             outline.classList.remove('hover');
             if(el) el.classList.remove('hover-effect');
         }
 
+        async function switchSubscene(menuId, sceneId) {
+            moveCursor(menuId, 500);
+            await wait(600);
+            await clickElement(menuId);
+            
+            document.querySelectorAll('.sidebar-item').forEach(e => e.classList.remove('active'));
+            document.getElementById(menuId).classList.add('active');
+            
+            document.getElementById('adminSidebar').classList.remove('open');
+            
+            document.querySelectorAll('.admin-subscene').forEach(e => e.classList.remove('active'));
+            document.getElementById(sceneId).classList.add('active');
+            await wait(800);
+        }
+
         async function startCinematic() {
             document.getElementById('playOverlay').style.display = 'none';
-            const outline = document.getElementById('fakeCursorOutline');
-            const dot = document.getElementById('fakeCursorDot');
-            
-            outline.style.left = '180px'; outline.style.top = '600px';
-            dot.style.left = '180px'; dot.style.top = '600px';
+            const cursorDot = document.getElementById('fakeCursorDot');
+            const cursorOutline = document.getElementById('fakeCursorOutline');
+            cursorDot.style.opacity = 1; cursorOutline.style.opacity = 1;
 
-            // 1. HERO & SCROLL
-            await wait(1000); 
-            document.getElementById('heroScroll').style.transform = 'translateY(-480px)';
-            await wait(2500);
-            document.getElementById('heroScroll').style.transform = 'translateY(0)';
-            await wait(1500);
-            
-            // 2. NAVIGATE TO GALERI
+            // SCENE 1: Hero
+            moveCursor('mainNav', 0, 0, 100);
+            await wait(2000);
+            document.getElementById('heroScroll').style.transform = 'translateY(-200px)';
+            await wait(1000);
+
+            // GALERI
             moveCursor('navGaleri', 800);
-            await wait(800);
+            await wait(900);
             await clickElement('navGaleri');
             document.getElementById('scene1').classList.remove('active');
-            
-            // 3. GALERI SCENE
             document.getElementById('sceneGaleri').classList.add('active');
-            await wait(800);
-            moveCursor('galeriItem4', 800);
-            await wait(800);
+            await wait(1500);
+            
+            moveCursor('galeriItem4', 600);
+            await wait(700);
             document.getElementById('galeriItem4').classList.add('hover-active');
-            outline.classList.add('hover');
-            await wait(1000);
-            outline.classList.add('click');
-            await wait(150);
-            outline.classList.remove('click'); outline.classList.remove('hover');
+            await clickElement('galeriItem4');
             document.getElementById('lightbox').classList.add('active');
-            await wait(1200);
+            await wait(1500);
             moveCursor('lightboxClose', 500);
-            await wait(500);
+            await wait(600);
             await clickElement('lightboxClose');
             document.getElementById('lightbox').classList.remove('active');
-            await wait(500);
-
-            // 4. NAVIGATE TO FORM
-            moveCursor('navDaftar', 800);
+            document.getElementById('galeriItem4').classList.remove('hover-active');
             await wait(800);
+
+            // FORM
+            moveCursor('navDaftar', 600);
+            await wait(700);
             await clickElement('navDaftar');
             document.getElementById('sceneGaleri').classList.remove('active');
-
-            // 5. FORM SCENE
             document.getElementById('scene2').classList.add('active');
-            await wait(500);
+            await wait(1000);
+
+            // Form Step 1
+            moveCursor('inputNama', 500); await wait(600); await clickElement('inputNama');
             await typeInput('inputNama', 'Budi Santoso');
-            await typeInput('inputHp', '08123456789');
-            moveCursor('btnNext1', 500);
-            await wait(500);
-            await clickElement('btnNext1');
-            
+            moveCursor('inputHp', 500); await wait(600); await clickElement('inputHp');
+            await typeInput('inputHp', '081234567890');
+            moveCursor('btnNext1', 500); await wait(600); await clickElement('btnNext1');
             document.getElementById('step1').classList.remove('active');
             document.getElementById('step2').classList.add('active');
             document.getElementById('wizardBar').style.width = '50%';
             document.getElementById('dot2').classList.add('active');
-            document.getElementById('dot1').classList.replace('active', 'completed');
-            await wait(500);
+            document.getElementById('dot1').classList.add('completed');
+            await wait(800);
 
+            // Form Step 2
+            moveCursor('inputBlok', 500); await wait(600); await clickElement('inputBlok');
             await typeInput('inputBlok', 'Blok A No. 17');
+            moveCursor('inputRt', 500); await wait(600); await clickElement('inputRt');
             document.getElementById('rtValue').innerText = 'RT 03';
-            moveCursor('btnNext2', 500);
-            await wait(500);
-            await clickElement('btnNext2');
-
+            document.getElementById('rtValue').style.color = '#fff';
+            await wait(400);
+            moveCursor('btnNext2', 500); await wait(600); await clickElement('btnNext2');
             document.getElementById('step2').classList.remove('active');
             document.getElementById('step3').classList.add('active');
             document.getElementById('wizardBar').style.width = '100%';
             document.getElementById('dot3').classList.add('active');
-            document.getElementById('dot2').classList.replace('active', 'completed');
-            await wait(500);
+            document.getElementById('dot2').classList.add('completed');
+            await wait(800);
 
-            moveCursor('lombaCard', 500);
-            await wait(500);
-            outline.classList.add('click');
+            // Form Step 3
+            moveCursor('lombaCard', 500); await wait(600); await clickElement('lombaCard');
             document.getElementById('lombaCard').classList.add('checked');
-            await wait(150); outline.classList.remove('click');
-            await wait(300);
-
-            moveCursor('btnSubmit', 500);
-            await wait(500);
-            await clickElement('btnSubmit');
+            await wait(400);
+            moveCursor('btnSubmit', 500); await wait(600); await clickElement('btnSubmit');
             document.getElementById('scene2').classList.remove('active');
-            document.getElementById('mainNav').style.transform = 'translateY(-100%)';
-            outline.style.opacity = '0'; dot.style.opacity = '0';
-            await wait(300);
-
-            // 6. SUCCESS & CONFETTI
             document.getElementById('scene3').classList.add('active');
-            await wait(1500);
+            await wait(2000);
             document.getElementById('loadingState').style.display = 'none';
             document.getElementById('successState').style.display = 'block';
-            setTimeout(() => { document.getElementById('successBar').style.opacity = '1'; document.getElementById('successBar').style.transform = 'translateY(0)'; }, 50);
-
-            var myCanvas = document.getElementById('confetti-canvas');
-            var myConfetti = confetti.create(myCanvas, { resize: true, useWorker: true });
-            var end = Date.now() + 3000;
-            (function frame() {
-                myConfetti({ particleCount: 5, angle: 60, spread: 60, origin: { x: 0 }, colors: ['#ffffff', '#ff0000'] });
-                myConfetti({ particleCount: 5, angle: 120, spread: 60, origin: { x: 1 }, colors: ['#ffffff', '#ff0000'] });
-                if (Date.now() < end) requestAnimationFrame(frame);
-            }());
-            await wait(3500);
-
-            // 7. TRANSITION TO ADMIN LOGIN
-            document.getElementById('scene3').classList.remove('active');
-            await wait(600); // Dark fade
-            document.getElementById('sceneAdminLogin').classList.add('active');
-            outline.style.opacity = '1'; dot.style.opacity = '1';
-            
-            // Type login details
-            await wait(800);
-            await typeInput('inputUsername', 'admin');
-            await wait(300);
-            await typeInput('inputPassword', 'password', true);
-            await wait(500);
-
-            // Click Login
-            moveCursor('btnLogin', 600);
-            await wait(600);
-            await clickElement('btnLogin');
-            
-            // 8. ADMIN DASHBOARD
-            document.getElementById('sceneAdminLogin').classList.remove('active');
-            await wait(400);
-            outline.style.opacity = '0'; dot.style.opacity = '0'; // Hide briefly during transition
-            document.getElementById('sceneAdmin').classList.add('active');
-            await wait(1000);
-            
-            // Scroll down admin panel
-            document.getElementById('adminScroll').style.transform = 'translateY(-180px)';
-            await wait(1200);
-
-            // Click User for Verification
-            outline.style.opacity = '1'; dot.style.opacity = '1';
-            moveCursor('adminClickUser', 800);
-            await wait(800);
-            await clickElement('adminClickUser');
-            
-            // Show Modal
-            document.getElementById('adminModal').classList.add('active');
-            await wait(1000);
-
-            // Click Setujui
-            moveCursor('btnSetuju', 800);
-            await wait(800);
-            await clickElement('btnSetuju');
-            
-            // Close modal & Update status
-            document.getElementById('adminModal').classList.remove('active');
-            document.getElementById('adminStatusText').className = 'status-badge status-ok';
-            document.getElementById('adminStatusText').innerText = 'Disetujui';
-            
-            outline.style.opacity = '0'; dot.style.opacity = '0';
+            await wait(100);
+            document.getElementById('successBar').style.opacity = 1;
+            document.getElementById('successBar').style.transform = 'translateY(0)';
             await wait(2000);
+
+            // ADMIN LOGIN
+            document.getElementById('scene3').classList.remove('active');
+            document.getElementById('sceneAdminLogin').classList.add('active');
+            document.getElementById('mainNav').style.transform = 'translateY(-100%)';
+            await wait(1000);
+            moveCursor('inputUsername', 500); await wait(600); await clickElement('inputUsername');
+            await typeInput('inputUsername', 'admin');
+            moveCursor('inputPassword', 500); await wait(600); await clickElement('inputPassword');
+            await typeInput('inputPassword', 'admin123', true);
+            moveCursor('btnLogin', 500); await wait(600); await clickElement('btnLogin');
+            
+            // ADMIN DASHBOARD
+            document.getElementById('sceneAdminLogin').classList.remove('active');
+            document.getElementById('sceneAdminLayout').classList.add('active');
+            await wait(1500);
+
+            // Open Menu & JADWAL
+            moveCursor('btnMenuToggle', 500); await wait(600); await clickElement('btnMenuToggle');
+            document.getElementById('adminSidebar').classList.add('open');
+            await wait(500);
+            await switchSubscene('menuJadwal', 'subJadwal');
+            await wait(1000);
+
+            // Open Menu & PESERTA
+            moveCursor('btnMenuToggle', 500); await wait(600); await clickElement('btnMenuToggle');
+            document.getElementById('adminSidebar').classList.add('open');
+            await wait(500);
+            await switchSubscene('menuPeserta', 'subPeserta');
+            
+            // Click Randomize
+            moveCursor('btnRandom', 500); await wait(600); await clickElement('btnRandom');
+            document.getElementById('btnRandom').innerText = 'Berhasil Diacak!';
+            await wait(1000);
+
+            // Open Menu & LOMBA
+            moveCursor('btnMenuToggle', 500); await wait(600); await clickElement('btnMenuToggle');
+            document.getElementById('adminSidebar').classList.add('open');
+            await wait(500);
+            await switchSubscene('menuLomba', 'subLomba');
+            await wait(1500);
+
+            // Confetti Finale
+            confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, colors: ['#ff4747', '#ffffff'] });
+            await wait(2000);
+
+            cursorDot.style.opacity = 0; cursorOutline.style.opacity = 0;
+            document.getElementById('playOverlay').style.display = 'flex';
+            document.getElementById('playOverlay').innerHTML = '<h2>Demo Selesai</h2><p>Klik untuk mengulang.</p>';
         }
     </script>
 </body>

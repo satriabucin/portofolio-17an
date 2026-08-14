@@ -9,7 +9,7 @@ Route::get('/', [PublicController::class, 'index']);
 Route::get('/daftar', [PublicController::class, 'daftar']);
 Route::post('/daftar', [PublicController::class, 'storeDaftar'])->middleware('throttle:10,1');
 Route::get('/cek-status', [PublicController::class, 'cekStatus']);
-Route::post('/cek-status', [PublicController::class, 'cariStatus']);
+Route::post('/cek-status', [PublicController::class, 'cariStatus'])->middleware('throttle:5,1');
 Route::get('/galeri', [PublicController::class, 'galeri']);
 Route::get('/tiket/{id}', [PublicController::class, 'downloadTiket']);
 Route::get('/jadwal', [JadwalController::class, 'index']);

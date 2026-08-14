@@ -103,7 +103,10 @@ class PublicController extends Controller
         }
         $request->merge(['no_hp' => $no_hp]);
 
-        $pendaftars = Pendaftar::where('no_hp', $request->no_hp)->get();
+        $pendaftars = Pendaftar::where('no_hp', $request->no_hp)->get()->map(function ($p) {
+            $p->token = encrypt($p->id);
+            return $p;
+        });
         return Inertia::render('CekStatus', ['pendaftars' => $pendaftars]);
     }
 
@@ -117,8 +120,14 @@ class PublicController extends Controller
         return Inertia::render('Galeri', ['images' => $images]);
     }
 
-    public function downloadTiket($id)
+    public function downloadTiket($token)
     {
+        try {
+            $id = decrypt($token);
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            abort(404, 'Tiket tidak ditemukan atau token tidak valid.');
+        }
+
         $pendaftar = Pendaftar::with('lombas')->findOrFail($id);
         if ($pendaftar->status_verifikasi !== 'Disetujui') {
             abort(403, 'Tiket hanya bisa diunduh untuk pendaftaran yang disetujui.');

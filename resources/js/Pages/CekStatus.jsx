@@ -56,8 +56,8 @@ export default function CekStatus({ pendaftars }) {
                                             </p>
                                             {p.status_verifikasi === 'Disetujui' && (
                                                 <div style={{ marginTop: '10px' }}>
-                                                    <a href={`/tiket/${p.id}`} target="_blank" rel="noreferrer" className="btn" style={{ background: 'var(--color-primary)', color: 'white', padding: '5px 15px', textDecoration: 'none', borderRadius: '4px', display: 'inline-block', fontSize: '0.9rem' }}>
-                                                        ⬇ Download Kupon & Jadwal
+                                                    <a href={`/tiket/${p.token}`} target="_blank" rel="noreferrer" className="btn" style={{ background: 'var(--color-primary)', color: 'white', padding: '5px 15px', textDecoration: 'none', borderRadius: '4px', display: 'inline-block', fontSize: '0.9rem' }}>
+                                                        <i className="fas fa-download" style={{ marginRight: '5px' }}></i> Unduh Tiket
                                                     </a>
                                                 </div>
                                             )}

@@ -27,3 +27,13 @@ Setiap kali saya memberikan instruksi pembuatan antarmuka situs web, Anda WAJIB 
    - DILARANG berhenti sebelum **semua** *task* atau implementasi selesai dilakukan.
    - Kerjakan semua *task* / *implementation plan* secara menyeluruh secara mandiri.
    - Jika dan hanya jika seluruh *task* telah dikerjakan dan diverifikasi dengan baik, barulah eksekusi boleh dihentikan dan Anda memberikan laporan.
+   - **Deployment Manual**: DILARANG KERAS melakukan perintah `git push` secara otomatis. Anda hanya boleh menyimpan perubahan (`git add` dan `git commit`). Tunggu instruksi eksplisit dari USER sebelum menekan tombol "push" ke repositori publik/GitHub, untuk menghemat kuota *deploy*.
+
+5. **Enterprise Security Standards**:
+   - Selalu terapkan **Middleware** untuk memproteksi rute yang bersifat tertutup (seperti halaman Admin), JANGAN menggunakan pengecekan sesi manual di dalam setiap *Controller*.
+   - Saat membuat fitur *Login*, pastikan untuk selalu meregenerasi ID Sesi (`$request->session()->regenerate()`) untuk mencegah serangan *Session Fixation*.
+   - Saat membuat fitur *Logout*, wajib menghancurkan sesi (`invalidate()`) dan memutar ulang token CSRF (`regenerateToken()`).
+   - Wajib menggunakan validasi input (`$request->validate()`) yang ketat sebelum memproses data ke *Database* (terutama saat *Create/Update*) guna menghindari celah *Mass Assignment*. Hindari penggunaan `$request->all()` pada model yang tidak dijaga ketat.
+   - Tambahkan pembatasan akses (*Rate Limiting*) menggunakan *Middleware Throttle* (misal: `throttle:5,1`) pada ujung tombak masuk (seperti *Login* dan *Register/Daftar*), serta pencarian publik untuk menghindari *Brute Force* dan *Data Enumeration*.
+   - Pastikan variabel `APP_DEBUG` disetel menjadi `false` dan `SESSION_SECURE_COOKIE` menjadi `true` pada konfigurasi *Production* (`.env`) agar token dan data rahasia tidak bocor melalui *Error Page*.
+   - Cegah celah **IDOR (Insecure Direct Object Reference)** dengan tidak mengekspos ID mentah (*auto-increment*) ke URL publik (contoh: `/tiket/1`). Gunakan Kriptografi (`encrypt()`) atau *UUID* untuk mengaburkan ID.

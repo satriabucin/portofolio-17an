@@ -32,11 +32,11 @@
         body { background-color: #000; color: var(--color-text); font-family: var(--font-body); display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; -webkit-font-smoothing: antialiased; }
 
         /* Cursor */
-        .cursor-dot, .cursor-outline { position: absolute; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; z-index: 99999; pointer-events: none; transition: opacity 0.3s; }
-        .cursor-dot { width: 8px; height: 8px; background-color: var(--color-primary); }
-        .cursor-outline { width: 40px; height: 40px; border: 2px solid rgba(255, 71, 71, 0.5); transition: width 0.2s, height 0.2s, background-color 0.2s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-        .cursor-outline.hover { width: 60px; height: 60px; background-color: rgba(255, 71, 71, 0.1); border-color: transparent; }
-        .cursor-outline.click { transform: translate(-50%, -50%) scale(0.8); background-color: rgba(255, 71, 71, 0.3); }
+        .cursor-dot, .cursor-outline { position: absolute; top: 0; left: 0; z-index: 99999; pointer-events: none; transition: opacity 0.3s; will-change: transform; }
+        .cursor-dot { width: 8px; height: 8px; margin: -4px 0 0 -4px; background-color: var(--color-primary); border-radius: 50%; }
+        .cursor-outline { width: 40px; height: 40px; margin: -20px 0 0 -20px; border: 2px solid rgba(255, 71, 71, 0.5); border-radius: 50%; transition: width 0.2s, height 0.2s, margin 0.2s, background-color 0.2s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .cursor-outline.hover { width: 60px; height: 60px; margin: -30px 0 0 -30px; background-color: rgba(255, 71, 71, 0.1); border-color: transparent; }
+        .cursor-outline.click { width: 32px; height: 32px; margin: -16px 0 0 -16px; background-color: rgba(255, 71, 71, 0.3); }
 
         /* Container */
         .story-container { width: 360px; height: 640px; background: linear-gradient(135deg, rgba(10, 10, 10, 0.9) 0%, rgba(30, 5, 5, 0.8) 100%), url('images/IMG_2704.JPG') no-repeat center center; background-size: cover; position: relative; overflow: hidden; box-shadow: 0 0 50px rgba(255, 71, 71, 0.15); }
@@ -471,11 +471,11 @@
             
             const outline = document.getElementById('fakeCursorOutline');
             const dot = document.getElementById('fakeCursorDot');
-            outline.style.transitionDuration = duration + 'ms';
-            dot.style.transitionDuration = (duration - 50) + 'ms';
+            outline.style.transition = `transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1), width 0.2s, height 0.2s, margin 0.2s, background-color 0.2s`;
+            dot.style.transition = `transform ${duration - 50}ms cubic-bezier(0.16, 1, 0.3, 1)`;
             
-            outline.style.left = x + 'px'; outline.style.top = y + 'px';
-            dot.style.left = x + 'px'; dot.style.top = y + 'px';
+            outline.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            dot.style.transform = `translate3d(${x}px, ${y}px, 0)`;
         }
 
         async function typeInput(elementId, text, isPassword = false) {

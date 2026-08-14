@@ -36,17 +36,21 @@ const TrueFocus = ({
   useEffect(() => {
     if (currentIndex === null || currentIndex === -1) return;
 
-    if (!wordRefs.current[currentIndex] || !containerRef.current) return;
+    const updateRect = () => {
+      if (!wordRefs.current[currentIndex] || !containerRef.current) return;
+      const parentRect = containerRef.current.getBoundingClientRect();
+      const activeRect = wordRefs.current[currentIndex].getBoundingClientRect();
+      setFocusRect({
+        x: activeRect.left - parentRect.left,
+        y: activeRect.top - parentRect.top,
+        width: activeRect.width,
+        height: activeRect.height
+      });
+    };
 
-    const parentRect = containerRef.current.getBoundingClientRect();
-    const activeRect = wordRefs.current[currentIndex].getBoundingClientRect();
-
-    setFocusRect({
-      x: activeRect.left - parentRect.left,
-      y: activeRect.top - parentRect.top,
-      width: activeRect.width,
-      height: activeRect.height
-    });
+    updateRect();
+    window.addEventListener('resize', updateRect);
+    return () => window.removeEventListener('resize', updateRect);
   }, [currentIndex, words.length]);
 
   const handleMouseEnter = index => {

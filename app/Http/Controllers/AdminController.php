@@ -63,7 +63,7 @@ class AdminController extends Controller
             ->orderBy('updated_at', 'desc')
             ->get();
             
-        $all_pendaftars = Pendaftar::with('lombas')->orderBy('created_at', 'desc')->get();
+        $all_pendaftars = Pendaftar::with('lombas')->orderBy('created_at', 'desc')->limit(1000)->get();
 
         return Inertia::render('Admin/Dashboard', [
             'total_pendaftar' => $total_pendaftar,
@@ -265,7 +265,7 @@ class AdminController extends Controller
 
     public function pendaftar()
     {
-        $pendaftars = Pendaftar::with('lombas')->where('status_verifikasi', 'Menunggu Verifikasi')->orderBy('created_at', 'desc')->get();
+        $pendaftars = Pendaftar::with('lombas')->where('status_verifikasi', 'Menunggu Verifikasi')->orderBy('created_at', 'desc')->limit(1000)->get();
         return Inertia::render('Admin/Pendaftar', ['pendaftars' => $pendaftars]);
     }
 
@@ -295,7 +295,7 @@ class AdminController extends Controller
 
     public function exportExcel()
     {
-        $pendaftars = Pendaftar::with('lombas')->get();
+        $pendaftars = Pendaftar::with('lombas')->cursor();
         $filename = "Rekap_Pendaftar_17an.csv";
         $handle = fopen('php://output', 'w');
         
@@ -315,7 +315,7 @@ class AdminController extends Controller
 
     public function exportPdf()
     {
-        $pendaftars = Pendaftar::with('lombas')->get();
+        $pendaftars = Pendaftar::with('lombas')->limit(500)->get();
         $pdf = Pdf::loadView('admin.report_pdf', compact('pendaftars'));
         return $pdf->download('Rekap_Pendaftar_17an.pdf');
     }

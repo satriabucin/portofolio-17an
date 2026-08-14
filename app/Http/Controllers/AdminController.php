@@ -45,8 +45,6 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        if (!session('admin_id')) return redirect(url('/admin/login'));
-        
         $total_pendaftar = Pendaftar::count();
         $total_disetujui = Pendaftar::where('status_verifikasi', 'Disetujui')->count();
         
@@ -75,8 +73,6 @@ class AdminController extends Controller
 
     public function updatePendaftar(Request $request, $id)
     {
-        if (!session('admin_id')) return redirect(url('/admin/login'));
-        
         // Data Filtering & Sanitization
         $no_hp = preg_replace('/[^0-9]/', '', $request->no_hp);
         if (str_starts_with($no_hp, '62')) {
@@ -117,8 +113,6 @@ class AdminController extends Controller
 
     public function deletePendaftar($id)
     {
-        if (!session('admin_id')) return redirect(url('/admin/login'));
-        
         $pendaftar = Pendaftar::findOrFail($id);
         
         ActivityLog::create([
@@ -135,14 +129,12 @@ class AdminController extends Controller
 
     public function deleteLomba($id)
     {
-        if (!session('admin_id')) return redirect(url('/admin/login'));
         Lomba::destroy($id);
         return back()->with('success', 'Lomba berhasil dihapus');
     }
 
     public function pesertaLomba()
     {
-        if (!session('admin_id')) return redirect(url('/admin/login'));
         
         $lombas = Lomba::with(['pendaftars' => function($query) {
             $query->where('status_verifikasi', 'Disetujui')
@@ -156,7 +148,6 @@ class AdminController extends Controller
 
     public function randomizeSesi(Request $request, $id)
     {
-        if (!session('admin_id')) return redirect(url('/admin/login'));
         
         $request->validate([
             'jumlah_sesi' => 'required|integer|min:1'
@@ -222,7 +213,6 @@ class AdminController extends Controller
 
     public function resetSesi(Request $request, $id)
     {
-        if (!session('admin_id')) return redirect(url('/admin/login'));
         
         $lomba = Lomba::findOrFail($id);
         
@@ -245,14 +235,22 @@ class AdminController extends Controller
 
     public function lomba()
     {
-        if (!session('admin_id')) return redirect(url('/admin/login'));
         $lombas = Lomba::all();
         return Inertia::render('Admin/Lomba', ['lombas' => $lombas]);
     }
 
     public function storeLomba(Request $request)
     {
-        $lomba = Lomba::create($request->all());
+        $validated = $request->validate([
+            'nama_lomba' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'kategori_usia' => 'required|string|max:100',
+            'kuota' => 'nullable|integer|min:1',
+            'jadwal_waktu' => 'nullable|date',
+            'lokasi' => 'nullable|string|max:255',
+        ]);
+
+        $lomba = Lomba::create($validated);
         ActivityLog::create([
             'admin_id' => session('admin_id'),
             'action' => 'Tambah Lomba',
@@ -264,7 +262,6 @@ class AdminController extends Controller
 
     public function pendaftar()
     {
-        if (!session('admin_id')) return redirect(url('/admin/login'));
         $pendaftars = Pendaftar::with('lombas')->where('status_verifikasi', 'Menunggu Verifikasi')->orderBy('created_at', 'desc')->get();
         return Inertia::render('Admin/Pendaftar', ['pendaftars' => $pendaftars]);
     }

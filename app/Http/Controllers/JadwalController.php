@@ -17,7 +17,6 @@ class JadwalController extends Controller
 
     public function adminIndex()
     {
-        if (!session('admin_id')) return redirect(url('/admin/login'));
         $jadwals = JadwalAcara::with('lomba')->orderBy('waktu_mulai', 'asc')->get();
         $lombas = Lomba::all();
         return Inertia::render('Admin/Jadwal', ['jadwals' => $jadwals, 'lombas' => $lombas]);
@@ -25,7 +24,6 @@ class JadwalController extends Controller
 
     public function store(Request $request)
     {
-        if (!session('admin_id')) return redirect(url('/admin/login'));
         $request->validate([
             'waktu_mulai' => 'required|date',
             'kegiatan' => 'required|string',
@@ -37,7 +35,6 @@ class JadwalController extends Controller
 
     public function update(Request $request, $id)
     {
-        if (!session('admin_id')) return redirect(url('/admin/login'));
         $jadwal = JadwalAcara::findOrFail($id);
         $jadwal->update($request->all());
         return back()->with('success', 'Jadwal berhasil diperbarui.');
@@ -45,7 +42,6 @@ class JadwalController extends Controller
 
     public function destroy($id)
     {
-        if (!session('admin_id')) return redirect(url('/admin/login'));
         JadwalAcara::destroy($id);
         return back()->with('success', 'Jadwal berhasil dihapus.');
     }

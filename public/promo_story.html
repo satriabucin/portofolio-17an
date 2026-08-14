@@ -217,9 +217,9 @@
         <canvas id="confetti-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000;"></canvas>
 
         <!-- Toast Alert Mimic -->
-        <div style="position: fixed; top: 20px; right: 20px; background: #333; color: #fff; padding: 12px 20px; border-radius: 8px; display: flex; align-items: center; gap: 12px; font-size: 0.85rem; box-shadow: 0 4px 15px rgba(0,0,0,0.4); z-index: 99999; transform: translateY(-30px); opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none; font-family: var(--font-body);" id="toastAlert">
-            <div style="background: #28a745; width: 20px; height: 20px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 0.75rem; color: #fff; font-weight: bold;">✓</div>
-            Pendaftaran berhasil!
+        <div style="position: fixed; top: 20px; left: 50%; background: rgba(30, 30, 40, 0.9); color: #fff; padding: 16px; border-radius: 8px; display: flex; align-items: center; gap: 12px; font-size: 0.9rem; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); z-index: 99999; transform: translate(-50%, -30px); opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none; font-family: var(--font-body); width: max-content; max-width: 90%; text-align: left;" id="toastAlert">
+            <div style="background: #4ade80; width: 20px; height: 20px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 0.75rem; color: #1e1e28; font-weight: bold; flex-shrink: 0;">✓</div>
+            Pendaftaran berhasil! Silakan cek status di menu Cek Status.
         </div>
 
         <!-- Fake Cursor UI -->
@@ -613,18 +613,18 @@
             document.getElementById('successState').style.display = 'block';
             
             // Trigger Confetti and Toast exactly like real website
-            confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, colors: ['#ff4747', '#ffffff', '#B8863B'] });
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ff4747', '#8B1E24', '#ffffff'] });
             document.getElementById('toastAlert').style.opacity = 1;
-            document.getElementById('toastAlert').style.transform = 'translateY(0)';
+            document.getElementById('toastAlert').style.transform = 'translate(-50%, 0)';
             
             await wait(100);
             document.getElementById('successBar').style.opacity = 1;
             document.getElementById('successBar').style.transform = 'translateY(0)';
-            await wait(2500);
+            await wait(3500);
             
             // Hide toast before next scene
             document.getElementById('toastAlert').style.opacity = 0;
-            document.getElementById('toastAlert').style.transform = 'translateY(-30px)';
+            document.getElementById('toastAlert').style.transform = 'translate(-50%, -30px)';
 
             // ADMIN LOGIN
             document.getElementById('scene3').classList.remove('active');

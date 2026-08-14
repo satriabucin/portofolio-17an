@@ -7,7 +7,7 @@ use App\Http\Controllers\JadwalController;
 
 Route::get('/', [PublicController::class, 'index']);
 Route::get('/daftar', [PublicController::class, 'daftar']);
-Route::post('/daftar', [PublicController::class, 'storeDaftar']);
+Route::post('/daftar', [PublicController::class, 'storeDaftar'])->middleware('throttle:10,1');
 Route::get('/cek-status', [PublicController::class, 'cekStatus']);
 Route::post('/cek-status', [PublicController::class, 'cariStatus']);
 Route::get('/galeri', [PublicController::class, 'galeri']);
@@ -15,7 +15,7 @@ Route::get('/tiket/{id}', [PublicController::class, 'downloadTiket']);
 Route::get('/jadwal', [JadwalController::class, 'index']);
 
 Route::get('/admin/login', [AdminController::class, 'showLogin']);
-Route::post('/admin/login', [AdminController::class, 'login']);
+Route::post('/admin/login', [AdminController::class, 'login'])->middleware('throttle:5,1');
 
 Route::middleware(['admin'])->group(function () {
     Route::get('/admin/logout', [AdminController::class, 'logout']);

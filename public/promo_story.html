@@ -60,7 +60,8 @@
         
         /* BlurText Mimic */
         .hero-title { font-family: var(--font-heading); font-size: 2.5rem; line-height: 1.05; margin-bottom: 25px; font-weight: 800; color: #fff; letter-spacing: -1.5px; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .blur-word { display: inline-block; filter: blur(10px); opacity: 0; transform: translateY(10px); animation: blurIn 0.8s forwards; }
+        .blur-word { display: inline-block; filter: blur(10px); opacity: 0; transform: translateY(10px); }
+        .hero-title.play-anim .blur-word { animation: blurIn 0.8s forwards; }
         @keyframes blurIn { to { filter: blur(0); opacity: 1; transform: translateY(0); } }
 
         .ss-card { background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 25px; box-shadow: 0 30px 60px rgba(0,0,0,0.6); backdrop-filter: blur(20px);}
@@ -75,7 +76,8 @@
         
         /* TrueFocus Mimic */
         .true-focus { position: relative; display: inline-block; padding: 0 0.1em; }
-        .true-focus .corner { position: absolute; width: 1rem; height: 1rem; border: 3px solid var(--color-primary); filter: drop-shadow(0 0 4px var(--color-primary)); border-radius: 3px; opacity: 0; animation: focusScope 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; animation-delay: 1.2s; }
+        .true-focus .corner { position: absolute; width: 1rem; height: 1rem; border: 3px solid var(--color-primary); filter: drop-shadow(0 0 4px var(--color-primary)); border-radius: 3px; opacity: 0; }
+        .feature-section.play-anim .true-focus .corner { animation: focusScope 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; animation-delay: 1.2s; }
         @keyframes focusScope {
             0% { opacity: 0; transform: scale(1.5); filter: blur(4px); }
             100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 4px var(--color-primary)); }
@@ -528,6 +530,9 @@
             cursorDot.style.opacity = 1; cursorOutline.style.opacity = 1;
 
             // SCENE 1: Hero
+            document.querySelector('.hero-title').classList.add('play-anim');
+            document.querySelector('.feature-section').classList.add('play-anim');
+            
             moveCursor('mainNav', 0, 0, 100);
             await wait(2000);
             document.getElementById('heroScroll').style.transform = 'translateY(-200px)';

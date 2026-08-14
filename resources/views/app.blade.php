@@ -16,13 +16,13 @@
         @inertiaHead
 
         <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2MLTRE2VW7"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2MJTRWEZVW"></script>
         <script>
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
 
-          gtag('config', 'G-2MLTRE2VW7');
+          gtag('config', 'G-2MJTRWEZVW');
         </script>
     </head>
     <body class="font-sans antialiased bg-black text-white">

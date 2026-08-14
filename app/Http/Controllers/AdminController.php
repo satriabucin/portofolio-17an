@@ -25,6 +25,7 @@ class AdminController extends Controller
     {
         $admin = Admin::where('username', $request->username)->first();
         if ($admin && Hash::check($request->password, $admin->password)) {
+            $request->session()->regenerate();
             session(['admin_id' => $admin->id, 'admin_name' => $admin->nama_lengkap]);
             ActivityLog::create([
                 'admin_id' => $admin->id,
@@ -37,9 +38,11 @@ class AdminController extends Controller
         return back()->with('error', 'Username atau Password salah');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         session()->forget(['admin_id', 'admin_name']);
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect(url('/admin/login'));
     }
 

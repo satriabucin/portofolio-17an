@@ -29,6 +29,19 @@ class PublicController extends Controller
 
     public function storeDaftar(Request $request)
     {
+        // Data Filtering & Sanitization
+        $no_hp = preg_replace('/[^0-9]/', '', $request->no_hp);
+        if (str_starts_with($no_hp, '62')) {
+            $no_hp = '0' . substr($no_hp, 2);
+        }
+
+        $request->merge([
+            'nama' => strip_tags(trim($request->nama)),
+            'blok_rumah' => strip_tags(trim($request->blok_rumah)),
+            'rt' => strip_tags(trim($request->rt)),
+            'no_hp' => $no_hp,
+        ]);
+
         $request->validate([
             'nama' => 'required|string|max:255',
             'blok_rumah' => 'required|string|max:255',
@@ -83,6 +96,13 @@ class PublicController extends Controller
 
     public function cariStatus(Request $request)
     {
+        // Data Filtering & Sanitization
+        $no_hp = preg_replace('/[^0-9]/', '', $request->no_hp);
+        if (str_starts_with($no_hp, '62')) {
+            $no_hp = '0' . substr($no_hp, 2);
+        }
+        $request->merge(['no_hp' => $no_hp]);
+
         $pendaftars = Pendaftar::where('no_hp', $request->no_hp)->get();
         return Inertia::render('CekStatus', ['pendaftars' => $pendaftars]);
     }

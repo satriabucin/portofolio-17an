@@ -77,6 +77,19 @@ class AdminController extends Controller
     {
         if (!session('admin_id')) return redirect(url('/admin/login'));
         
+        // Data Filtering & Sanitization
+        $no_hp = preg_replace('/[^0-9]/', '', $request->no_hp);
+        if (str_starts_with($no_hp, '62')) {
+            $no_hp = '0' . substr($no_hp, 2);
+        }
+
+        $request->merge([
+            'nama' => strip_tags(trim($request->nama)),
+            'blok_rumah' => strip_tags(trim($request->blok_rumah)),
+            'rt' => strip_tags(trim($request->rt)),
+            'no_hp' => $no_hp,
+        ]);
+        
         $request->validate([
             'nama' => 'required|string|max:255',
             'blok_rumah' => 'required|string|max:255',

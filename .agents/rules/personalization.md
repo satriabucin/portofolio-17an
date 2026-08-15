@@ -38,3 +38,8 @@ Setiap kali saya memberikan instruksi pembuatan antarmuka situs web, Anda WAJIB 
    - Pastikan variabel `APP_DEBUG` disetel menjadi `false` dan `SESSION_SECURE_COOKIE` menjadi `true` pada konfigurasi *Production* (`.env`) agar token dan data rahasia tidak bocor melalui *Error Page*.
    - Cegah celah **IDOR (Insecure Direct Object Reference)** dengan tidak mengekspos ID mentah (*auto-increment*) ke URL publik (contoh: `/tiket/1`). Gunakan Kriptografi (`encrypt()`) atau *UUID* untuk mengaburkan ID.
    - Cegah **Application-level DoS (Memory Exhaustion)** dengan selalu membatasi pengambilan data besar dari *Database*. Hindari penggunaan `->get()` tanpa batas pada tabel berskala besar. Selalu gunakan `->paginate()`, `->limit()`, atau mekanisme *Streaming* seperti `->cursor()` untuk mencetak dokumen (Excel/PDF) yang sangat masif.
+
+6. **Senior SDLC Practices**:
+   - **TDD (Test-Driven Development) & Automated Testing**: Wajib melengkapi fitur krusial (terutama terkait keamanan, transaksi, dan data privasi) dengan *Automated Unit/Feature Test* menggunakan *PHPUnit/Pest* atau alat setara. Tes harus mencakup *Happy Path* dan *Negative Case*.
+   - **Professional Documentation**: Setiap proyek wajib memiliki `README.md` berstandar internasional yang mencakup spesifikasi, prasyarat, instalasi, dan panduan penggunaan.
+   - **Git Flow & Conventional Commits**: Biasakan penggunaan *branching* yang terstruktur dan format penamaan *commit* yang deskriptif (misal: `feat:`, `fix:`, `docs:`, `test:`).

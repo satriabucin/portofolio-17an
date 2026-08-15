@@ -1,8 +1,10 @@
 import { useForm, usePage } from '@inertiajs/react';
+import { useState } from 'react';
 import AdminLayout from '../../Layouts/AdminLayout';
 
 export default function PesertaLomba({ lombas }) {
     const { flash } = usePage().props;
+    const [searchTerm, setSearchTerm] = useState('');
 
     const printLomba = (lombaId, lombaNama, kategori, anggotaPerTim) => {
         const targetCard = document.getElementById('lomba-card-' + lombaId);
@@ -57,7 +59,7 @@ export default function PesertaLomba({ lombas }) {
                 @media print {
                     @page { size: A4; margin: 1.5cm; }
                     body { background: #fff !important; color: #000 !important; overflow: visible !important; }
-                    .sidebar, .menu-toggle, button, form { display: none !important; }
+                    .sidebar, .menu-toggle, button, form, .search-container { display: none !important; }
                     .content { padding: 0 !important; margin: 0 !important; width: 100% !important; }
                     .admin-layout { display: block !important; width: 100% !important; }
                     .print-area { position: static !important; width: 100% !important; margin: 0 !important; padding: 0 !important; }
@@ -73,7 +75,7 @@ export default function PesertaLomba({ lombas }) {
                 }
             `}</style>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '15px', marginBottom: '20px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '15px', marginBottom: '10px' }}>
                 <div>
                     <h1 style={{ marginBottom: '5px' }}>Daftar Peserta Per Lomba</h1>
                     <p style={{ opacity: 0.8 }}>Rekapitulasi warga yang telah diverifikasi dan siap mengikuti lomba.</p>
@@ -81,16 +83,27 @@ export default function PesertaLomba({ lombas }) {
                 <button onClick={() => window.print()} className="btn btn-accent" style={{ padding: '10px 15px', borderRadius: '6px', border: 'none', cursor: 'pointer' }}>🖨️ Cetak Rekap</button>
             </div>
 
+            <div className="search-container" style={{ marginBottom: '20px' }}>
+                <input 
+                    type="text" 
+                    placeholder="🔍 Cari nama peserta di semua lomba..." 
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="form-control"
+                    style={{ width: '100%', maxWidth: '400px', padding: '10px 15px', borderRadius: '8px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)', fontSize: '1rem' }}
+                />
+            </div>
+
             <div className="print-area">
                 {lombas.map(lomba => (
-                    <LombaCard key={lomba.id} lomba={lomba} printLomba={printLomba} />
+                    <LombaCard key={lomba.id} lomba={lomba} printLomba={printLomba} searchTerm={searchTerm} />
                 ))}
             </div>
         </AdminLayout>
     );
 }
 
-function LombaCard({ lomba, printLomba }) {
+function LombaCard({ lomba, printLomba, searchTerm }) {
     const { data: randomData, setData: setRandomData, post: postRandom, processing: randomProcessing } = useForm({
         jumlah_sesi: '1'
     });
@@ -110,8 +123,15 @@ function LombaCard({ lomba, printLomba }) {
         }
     };
 
+    const filteredPendaftars = lomba.pendaftars.filter(p => {
+        if (!searchTerm) return true;
+        return p.nama.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
+    if (searchTerm && filteredPendaftars.length === 0) return null;
+
     // Grouping
-    const groupedPendaftars = lomba.pendaftars.reduce((acc, p) => {
+    const groupedPendaftars = filteredPendaftars.reduce((acc, p) => {
         const sesi = p.pivot.sesi || 'Belum Dibagi';
         if (!acc[sesi]) acc[sesi] = [];
         acc[sesi].push(p);

@@ -71,7 +71,7 @@ export default function AdminLayout({ children, title = 'Panel Admin - Peringata
             osc2.connect(gain2);
             gain2.connect(ctx.destination);
             osc2.start();
-            osc.stop(ctx.currentTime + 1);
+            osc2.stop(ctx.currentTime + 1);
         } catch (e) {
             console.log("Audio play failed or blocked by browser policy", e);
         }

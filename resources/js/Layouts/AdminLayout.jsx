@@ -4,6 +4,8 @@ import VanillaTilt from 'vanilla-tilt';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
 
+let globalAudioCtx = null;
+
 export default function AdminLayout({ children, title = 'Panel Admin - Peringatan 17 Agustus' }) {
     const { url, props } = usePage();
     const { auth, flash, errors, unverified_count } = props;
@@ -14,6 +16,23 @@ export default function AdminLayout({ children, title = 'Panel Admin - Peringata
     const previousCount = useRef(unverified_count);
 
     const lastFlash = useRef({ success: '', error: '' });
+
+    // Initialize Global Audio Context on any user interaction
+    useEffect(() => {
+        const initAudio = () => {
+            if (!globalAudioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) {
+                    globalAudioCtx = new AudioContext();
+                }
+            }
+            if (globalAudioCtx && globalAudioCtx.state === 'suspended') {
+                globalAudioCtx.resume();
+            }
+        };
+        document.addEventListener('click', initAudio);
+        return () => document.removeEventListener('click', initAudio);
+    }, []);
 
     useEffect(() => {
         if (flash?.success && lastFlash.current.success !== flash.success) {
@@ -39,9 +58,9 @@ export default function AdminLayout({ children, title = 'Panel Admin - Peringata
     // Play an iPhone-style "Ting" sound
     const playNotificationSound = () => {
         try {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (!AudioContext) return;
-            const ctx = new AudioContext();
+            if (!globalAudioCtx) return;
+            const ctx = globalAudioCtx;
+            if (ctx.state === 'suspended') ctx.resume();
             
             // Oscillator 1: Main tone (C6)
             const osc1 = ctx.createOscillator();
